@@ -29,24 +29,31 @@ fun main() {
     arr.set(2, "Antalya")
 
     val datas = mutableListOf<String>()
-    for (i in 0..90000){
+    for (i in 0..9000){
         datas.add("Title - $i")
     }
 
     println("----------")
     val start = System.currentTimeMillis()
-    for (item in datas){
-        try {
-            Thread.sleep(1)
-        }catch (err:Error) {}
-        println(item)
-    }
-//    datas.onEach {
+//    for (item in datas){
 //        try {
 //            Thread.sleep(1)
 //        }catch (err:Error) {}
-//        println(it)
+//        println(item)
 //    }
+//        datas.forEach {
+//        try {
+//           Thread.sleep(1)
+//       }catch (err:Error) {}
+//       println(it)
+//    }
+    val filteredDatas = datas.onEach {
+        try {
+            Thread.sleep(1)
+        }catch (err:Error) {}
+        println(it)
+    }.groupBy { it.length }
+    println(filteredDatas)
     val end = System.currentTimeMillis()
     val between = end - start
     println("Between: $between")
