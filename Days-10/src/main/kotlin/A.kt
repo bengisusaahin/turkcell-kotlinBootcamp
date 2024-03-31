@@ -2,6 +2,7 @@ class A : Base {
 
     constructor(): super(100){
         println("A call")
+        code = 20
     }
 
     constructor(num : Int): super(num){

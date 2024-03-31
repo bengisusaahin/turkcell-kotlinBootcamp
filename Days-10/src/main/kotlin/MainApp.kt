@@ -15,7 +15,7 @@ fun main(){
 
 fun poliCall(base: Base){
     if (base is A){
-        base.print(100)
+        base.print(12)
     }
     base.call()
 }
