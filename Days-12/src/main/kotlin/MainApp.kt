@@ -11,4 +11,10 @@ fun main() {
     IProduct.name = "Zehra"
     println(IProduct.name)
     IProduct.name = null
+
+    val db = Using()
+    db.call()
+
+
+
 }
