@@ -55,7 +55,7 @@ fun main(){
 
     //not equal
     status = num1 != num2
-    println("equal: $status")
+    println("Not equal: $status")
 
     val v1:Any = num1
     val v2:Any = num2
@@ -136,7 +136,7 @@ fun main(){
     println("|| : $status ")
 
     // iç içe kullanım
-    status = a > 5 || c > 40 && b > 9
+    status = (a > 5 || c > 40) && b < 9
     println("iç içe : $status ")
 
 }

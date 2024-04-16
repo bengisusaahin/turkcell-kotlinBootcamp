@@ -1,6 +1,6 @@
 abstract class Employee {
 
-    abstract  var tc: Long
+    abstract var tc: Long
     abstract fun accountNumber() : Int
 
     fun accountName(): String {

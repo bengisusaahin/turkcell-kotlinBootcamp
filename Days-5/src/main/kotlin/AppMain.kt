@@ -80,6 +80,7 @@ fun main() {
     }
 
     println("---------")
+    // böyle olmuyor down to lazım
     for (i in 10..1 step 2){
         println(i)
     }

@@ -33,7 +33,7 @@ fun main() {
     obj.fnc1("Ahmet", null)
     obj.fnc1()
 
-    fun senOrder(x: Double, y:Double) = x +y
+    fun senOrder(x: Double, y:Double) = x + y
     val sm = obj.order(10.0, 40.0, ::senOrder)
     println(sm)
 
