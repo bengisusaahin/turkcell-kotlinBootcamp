@@ -11,41 +11,37 @@ class CustomerManager {
     }
 
     // To update customer infos in the customer list
-    fun updateCustomer(customerId: Int, updatedName: String? = null, updatedEmail: String? = null, updatedPhoneNumber: Long? = null) {
+    fun updateCustomer(customerId: Int, updatedName: String? = null, updatedEmail: String? = null, updatedPhoneNumber: Long? = null, updatedLoyaltyPoints: Int? = null, updatedVipLevel: Int? = null) {
         // The indexOfFirst function is used to find the customer directly in the list.
         val index = customerList.indexOfFirst { it.generateCustomerId() == customerId }
 
         if (index != -1) {
-            val updatedCustomer = when (val customer = customerList[index]) {
+            val customer = customerList[index]
+            when (customer) {
                 is RegularCustomer -> {
-                    RegularCustomer(
-                        updatedName ?: customer.name,
-                        updatedEmail ?: customer.email,
-                        updatedPhoneNumber ?: customer.phoneNumber,
-                        customer.loyaltyPoints
-                    )
+                    // If updatedName is not null then calls let function and the updated name will assign to the customer
+                    updatedName?.let { customer.name = it }
+                    updatedEmail?.let { customer.email = it }
+                    updatedPhoneNumber?.let { customer.phoneNumber = it }
+                    updatedLoyaltyPoints?.let { customer.loyaltyPoints = it }
                 }
-
                 is VIPCustomer -> {
-                    VIPCustomer(
-                        updatedName ?: customer.name,
-                        updatedEmail ?: customer.email,
-                        updatedPhoneNumber ?: customer.phoneNumber,
-                        customer.vipLevel
-                    )
+                    updatedName?.let { customer.name = it }
+                    updatedEmail?.let { customer.email = it }
+                    updatedPhoneNumber?.let { customer.phoneNumber = it }
+                    updatedVipLevel?.let { customer.vipLevel = it }
                 }
-
                 else -> {
                     println("Unknown customer type.")
                     return
                 }
             }
-            customerList[index] = updatedCustomer
             println("\nCustomer infos are updated: $customerId")
-        }else {
+        } else {
             println("\nCustomer was not found! : $customerId . Make sure you enter the correct customer ID.")
         }
     }
+
 
     // To show all customers as a customer list
     fun listCustomers(){
