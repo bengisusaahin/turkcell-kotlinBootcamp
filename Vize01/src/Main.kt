@@ -16,8 +16,7 @@ fun main() {
     println("\nCustomer List:")
     customerManager.listCustomers()
 
-    customerManager.updateCustomer(3,"Boracan","boracan@hotmail.com", 5456366969)
-    regularCustomer.loyaltyPoints = 5
+    customerManager.updateCustomer(3,"Boracan","boracan@hotmail.com", 5456366969,5)
     customerManager.updateCustomer(4,"Ben")
 
     println("\nCustomer List after update the customer:")

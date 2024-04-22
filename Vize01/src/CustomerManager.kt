@@ -11,32 +11,32 @@ class CustomerManager {
     }
 
     // To update customer infos in the customer list
-    fun updateCustomer(customerId: Int, updatedName: String? = null, updatedEmail: String? = null, updatedPhoneNumber: Long? = null, updatedLoyaltyPoints: Int? = null, updatedVipLevel: Int? = null) {
+    fun updateCustomer(customerId: Int, updatedName: String? = null, updatedEmail: String? = null, updatedPhoneNumber: Long? = null, updatedPointsOrLevel: Int? = null) {
         // The indexOfFirst function is used to find the customer directly in the list.
         val index = customerList.indexOfFirst { it.generateCustomerId() == customerId }
 
         if (index != -1) {
-            val customer = customerList[index]
-            when (customer) {
+            when (val customer = customerList[index]) {
                 is RegularCustomer -> {
                     // If updatedName is not null then calls let function and the updated name will assign to the customer
                     updatedName?.let { customer.name = it }
                     updatedEmail?.let { customer.email = it }
                     updatedPhoneNumber?.let { customer.phoneNumber = it }
-                    updatedLoyaltyPoints?.let { customer.loyaltyPoints = it }
+                    updatedPointsOrLevel?.let { customer.loyaltyPoints = it }
+                    println("\nRegular customer infos are updated: $customerId")
                 }
                 is VIPCustomer -> {
                     updatedName?.let { customer.name = it }
                     updatedEmail?.let { customer.email = it }
                     updatedPhoneNumber?.let { customer.phoneNumber = it }
-                    updatedVipLevel?.let { customer.vipLevel = it }
+                    updatedPointsOrLevel?.let { customer.vipLevel = it }
+                    println("\nVIP customer infos are updated: $customerId")
                 }
                 else -> {
                     println("Unknown customer type.")
                     return
                 }
             }
-            println("\nCustomer infos are updated: $customerId")
         } else {
             println("\nCustomer was not found! : $customerId . Make sure you enter the correct customer ID.")
         }
