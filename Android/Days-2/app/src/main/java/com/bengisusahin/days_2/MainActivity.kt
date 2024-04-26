@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
         buttonLogin = findViewById(R.id.buttonLogin)
         buttonRegister = findViewById(R.id.buttonRegister)
 
-        // sahnenin(view(v) nin sağlı sollu padding ya da buna benzer genel ayarlarını apma fnc. )
+        // sahnenin(view(v)) nin sağlı sollu padding ya da buna benzer genel ayarlarını yapma fnc.
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
