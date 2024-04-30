@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.bengisusahin.days_4.models.Customer
+import com.bengisusahin.days_4.models.User
 
 class MainActivity : AppCompatActivity() {
 
@@ -35,6 +36,10 @@ class MainActivity : AppCompatActivity() {
             i.putExtra("name", "Serkan")
             val customer = Customer("Bengisu","Şahin","24")
             DetailActivity.customer = customer
+
+            val user = User(100, "ali01", "12345")
+            i.putExtra("user", user)
+
             startActivity(i)
         }
     }
