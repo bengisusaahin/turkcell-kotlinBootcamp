@@ -1,12 +1,15 @@
 package com.bengisusahin.days_4
 
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.enableEdgeToEdge
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.bengisusahin.days_4.models.Customer
+import com.bengisusahin.days_4.models.User
 
 class DetailActivity : AppCompatActivity() {
 
@@ -14,6 +17,7 @@ class DetailActivity : AppCompatActivity() {
         var customer: Customer? = null
     }
 
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -41,6 +45,16 @@ class DetailActivity : AppCompatActivity() {
 
         customer?.let {
             Log.d("Customer", it.toString())
+        }
+
+        // Serializable arka tarafta bir maaliyettir aynı zamanda
+        val userSerializable = intent.getSerializableExtra("user", User::class.java)
+        userSerializable?.let {
+            Log.d("user", userSerializable.toString())
+        }
+        if (userSerializable == null){
+            finish()
+            System.exit(0)
         }
     }
 }
