@@ -1,3 +1,17 @@
 <resources>
     <string name="app_name">Bengisu_Sahin_Odev05</string>
+    <string name="shane_richar">Shane Richar</string>
+    <string name="photographer">Photographer</string>
+    <string name="detail">Detail</string>
+    <string name="_98">98</string>
+    <string name="photo">Photo</string>
+    <string name="_10k">10k</string>
+    <string name="followers">Followers</string>
+    <string name="_920">920</string>
+    <string name="following">Following</string>
+    <string name="fashion">#fashion</string>
+    <string name="photography">#photography</string>
+    <string name="contrary_to_popular_belief_lorem_ipsum_is_not_simply_random_text_it_has_roots_in_a_piece_of_classical_latin">Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical latin.</string>
+    <string name="london_uk">London, UK</string>
+    <string name="tanya_nguyen">Tanya Nguyen</string>
 </resources>

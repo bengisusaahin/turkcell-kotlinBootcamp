@@ -15,7 +15,8 @@
         android:layout_marginStart="32dp"
         android:layout_marginEnd="171dp"
         android:fontFamily="@font/gilroy_bold"
-        android:text="Tanya Nguyen"
+        android:text="@string/tanya_nguyen"
+        android:textColor="#00044D"
         android:textSize="32sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -44,7 +45,7 @@
         android:layout_marginStart="2dp"
         android:layout_marginEnd="220dp"
         android:fontFamily="@font/gilroy_medium"
-        android:text="London, UK"
+        android:text="@string/london_uk"
         android:textColor="#7A00044D"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@+id/imageView7"
@@ -57,13 +58,12 @@
         android:id="@+id/imageView11"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
         android:layout_marginTop="43dp"
         android:src="@drawable/ic_heart"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/imageView7"
         app:layout_constraintTop_toBottomOf="@+id/imageView7"
         app:layout_constraintVertical_bias="0.0" />
 
@@ -93,73 +93,72 @@
 
     <TextView
         android:id="@+id/textView10"
-        android:layout_width="349dp"
-        android:layout_height="81dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:fontFamily="@font/inter_regular2"
-        android:text="Contrary to popular belief, Lorem Ipsum  is not simply random text. It has roots in  a piece of classical latin."
+        android:lineSpacingExtra="16sp"
+        android:text="@string/contrary_to_popular_belief_lorem_ipsum_is_not_simply_random_text_it_has_roots_in_a_piece_of_classical_latin"
+        android:textAlignment="viewStart"
         android:textColor="#8000044D"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/imageView13"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/imageView11"
         app:layout_constraintTop_toBottomOf="@+id/imageView12"
-        app:layout_constraintVertical_bias="0.038" />
+        app:layout_constraintVertical_bias="0.027" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
         android:layout_width="144dp"
         android:layout_height="32dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="238dp"
         app:cardBackgroundColor="#F0F1F6"
         app:cardCornerRadius="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.285"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView10"
-        app:layout_constraintVertical_bias="0.228">
+        app:layout_constraintStart_toStartOf="@+id/textView10"
+        app:layout_constraintTop_toBottomOf="@+id/textView10">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:fontFamily="@font/gilroy_medium"
-            android:text="#photography"
-            android:textColor="#A300044D"></TextView>
+            android:text="@string/photography"
+            android:textColor="#A300044D" />
 
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
         android:layout_width="106dp"
         android:layout_height="32dp"
+        android:layout_marginStart="8dp"
         app:cardBackgroundColor="#F0F1F6"
         app:cardCornerRadius="16dp"
         app:layout_constraintBottom_toBottomOf="@+id/cardView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.222"
+        app:layout_constraintEnd_toEndOf="@+id/textView10"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/cardView"
         app:layout_constraintTop_toTopOf="@+id/cardView"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintVertical_bias="1.0">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:fontFamily="@font/gilroy_medium"
-            android:text="#fashion"
-            android:textColor="#A300044D"></TextView>
+            android:text="@string/fashion"
+            android:textColor="#A300044D" />
 
     </androidx.cardview.widget.CardView>
 
     <ImageView
         android:id="@+id/imageView3"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.49"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
