@@ -10,6 +10,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.bengisusahin.vize02_calisma.databinding.ActivityDetailBinding
 import com.bengisusahin.vize02_calisma.services.XmlService
+import com.google.android.material.snackbar.Snackbar
 
 class DetailActivity : AppCompatActivity() {
 
@@ -38,12 +39,20 @@ class DetailActivity : AppCompatActivity() {
 
             builder.setPositiveButton("Yes") { dialog, wich ->
                 Thread {
-                    XmlService().xmlLoad()
+                    val currencyList = XmlService().xmlLoad()
+                    runOnUiThread {
+                        if (currencyList.isNotEmpty()) {
+                            // binding.textViewXml.text = currencyList.toString()
+                            binding.textViewXml.text = "Currency Name: ${currencyList[0].CurrencyName}\nForex Buying: ${currencyList[0].ForexBuying}"
+                        } else {
+                            Snackbar.make(binding.root, "No data available", Snackbar.LENGTH_LONG).show()
+                        }
+                    }
                 }.start()
             }
 
             builder.setNegativeButton("No") { dialog, wich ->
-                Log.d("builder", "No Click")
+                Snackbar.make(this, it, "Data can't be shown", Snackbar.LENGTH_LONG).show()
             }
 
             builder.setNeutralButton("Cancel") { dialog, wich ->
