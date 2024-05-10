@@ -47,7 +47,6 @@ class MainActivity : AppCompatActivity() {
     @SuppressLint("SetTextI18n")
     fun search() {
         // Kod Uı ile etkileşim ierdiği ve UI performansını etkileyecek uzun işlemler ierdiği için runOnUiThread
-        runOnUiThread {
             binding.buttonArama.setOnClickListener {
                 runOnUiThread {
                     val searchText = binding.searchView.query.toString()
@@ -58,7 +57,6 @@ class MainActivity : AppCompatActivity() {
                     binding.textViewBulunan.text = "Bulunan : " + filteredPlant.count().toString()
                 }
             }
-        }
     }
 
     private fun detail(){
