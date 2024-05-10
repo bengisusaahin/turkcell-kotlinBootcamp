@@ -31,7 +31,7 @@ class DetailActivity : AppCompatActivity() {
         }
 
         // MAinActivityde Xml serviceden çekilden bitkinin detaylarını bu aktivityde göstermek icin
-        // getStringExtra methoddunu kullandık
+        // getSerializableExtra methoddunu kullandık
         val detail = intent.getSerializableExtra("detail") as Plant
 
         //Log.d("detail", textDetail!!)
