@@ -18,8 +18,8 @@ class XmlService {
                 val ForexBuying = item.getElementsByTag("ForexBuying").text()
                 val c = Currency(CurrencyName, ForexBuying)
                 list.add(c)
-                Log.d("xml", list.toString())
             }
+            Log.d("xml", list.toString())
         }catch (ex: Exception) {
             Log.e("xmlLoad", ex.message.toString() )
         }

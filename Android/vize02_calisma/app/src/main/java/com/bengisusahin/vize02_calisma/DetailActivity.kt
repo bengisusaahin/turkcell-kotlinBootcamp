@@ -34,7 +34,7 @@ class DetailActivity : AppCompatActivity() {
 
         binding.buttonGetData.setOnClickListener {
             val builder = AlertDialog.Builder(this)
-            builder.setTitle("Delete")
+            builder.setTitle("Get Data")
             builder.setMessage("Are you sure!")
 
             builder.setPositiveButton("Yes") { dialog, wich ->
@@ -44,6 +44,7 @@ class DetailActivity : AppCompatActivity() {
                         if (currencyList.isNotEmpty()) {
                             // binding.textViewXml.text = currencyList.toString()
                             binding.textViewXml.text = "Currency Name: ${currencyList[0].CurrencyName}\nForex Buying: ${currencyList[0].ForexBuying}"
+                            // println(currencyList)
                         } else {
                             Snackbar.make(binding.root, "No data available", Snackbar.LENGTH_LONG).show()
                         }

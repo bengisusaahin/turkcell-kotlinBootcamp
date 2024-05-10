@@ -110,7 +110,7 @@
         android:layout_height="50dp"
         app:layout_constraintEnd_toStartOf="@+id/imageView8"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/text_password"
         app:layout_constraintTop_toTopOf="@+id/imageView8"
         app:srcCompat="@drawable/ic_google" />
 
@@ -129,7 +129,7 @@
         android:id="@+id/imageView9"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/text_password"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/imageView8"
         app:layout_constraintTop_toTopOf="@+id/imageView8"
