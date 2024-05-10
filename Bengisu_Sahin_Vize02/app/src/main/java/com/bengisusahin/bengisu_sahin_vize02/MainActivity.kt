@@ -38,7 +38,7 @@ class MainActivity : AppCompatActivity() {
         Thread{
             plantList = XmlService().xmlLoad()
         }.start()
-        
+
         search()
         detail()
 
@@ -65,12 +65,7 @@ class MainActivity : AppCompatActivity() {
         binding.buttonDetay.setOnClickListener {
             if (filteredPlant.isNotEmpty()) {
                 val intent = Intent(this, DetailActivity::class.java )
-                intent.putExtra("detailCommon", filteredPlant[0].COMMON)
-                intent.putExtra("detailBotanical", filteredPlant[0].BOTANICAL)
-                intent.putExtra("detailZone", filteredPlant[0].ZONE)
-                intent.putExtra("detailLight", filteredPlant[0].LIGHT)
-                intent.putExtra("detailPrice", filteredPlant[0].PRICE)
-                intent.putExtra("detailAvailability", filteredPlant[0].AVAILABILITY)
+                intent.putExtra("detail", filteredPlant[0])
                 startActivity(intent)
             } else {
                 Toast.makeText(this, "Bir plant bulunamadı.", Toast.LENGTH_SHORT).show()

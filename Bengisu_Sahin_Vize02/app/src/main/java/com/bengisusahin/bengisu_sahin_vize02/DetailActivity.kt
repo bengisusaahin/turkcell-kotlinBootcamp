@@ -1,5 +1,6 @@
 package com.bengisusahin.bengisu_sahin_vize02
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -8,10 +9,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.bengisusahin.bengisu_sahin_vize02.databinding.ActivityDetailBinding
+import com.bengisusahin.bengisu_sahin_vize02.models.Plant
 
 class DetailActivity : AppCompatActivity() {
 
     private lateinit var bindingDetail : ActivityDetailBinding
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         bindingDetail = ActivityDetailBinding.inflate(layoutInflater)
@@ -29,17 +32,11 @@ class DetailActivity : AppCompatActivity() {
 
         // MAinActivityde Xml serviceden çekilden bitkinin detaylarını bu aktivityde göstermek icin
         // getStringExtra methoddunu kullandık
-        val detailCommon = intent.getStringExtra("detailCommon")
-        val detailBotanical = intent.getStringExtra("detailBotanical")
-        val detailZone = intent.getStringExtra("detailZone")
-        val detailLight = intent.getStringExtra("detailLight")
-        val detailPrice = intent.getStringExtra("detailPrice")
-        val detailAvailability = intent.getStringExtra("detailAvailability")
+        val detail = intent.getSerializableExtra("detail") as Plant
 
-        val textDetail = "$detailCommon \n$detailBotanical \n$detailZone \n" +
-                "$detailLight\n$detailPrice\n$detailAvailability"
         //Log.d("detail", textDetail!!)
-        bindingDetail.textViewDetail.text = textDetail
+        bindingDetail.textViewDetail.text ="${detail.COMMON} \n${detail.BOTANICAL} \n${detail.ZONE}" +
+                "\n${detail.LIGHT}\n${detail.PRICE}\n${detail.AVAILABILITY}"
 
 
         // geri butonuna basıldığında main activitye dönülmesi icin startActivity(intent)
