@@ -38,11 +38,7 @@ class MainActivity : AppCompatActivity() {
         Thread{
             plantList = XmlService().xmlLoad()
         }.start()
-
-
-        binding.buttonArama.setOnClickListener {
-
-        }
+        
         search()
         detail()
 
