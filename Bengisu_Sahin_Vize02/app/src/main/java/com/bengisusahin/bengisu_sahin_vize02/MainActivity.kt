@@ -47,16 +47,16 @@ class MainActivity : AppCompatActivity() {
     @SuppressLint("SetTextI18n")
     fun search() {
         // Kod Uı ile etkileşim ierdiği ve UI performansını etkileyecek uzun işlemler ierdiği için runOnUiThread
-            binding.buttonArama.setOnClickListener {
-                runOnUiThread {
-                    val searchText = binding.searchView.query.toString()
-                    filteredPlant = plantList.filter { plant ->
-                        plant.COMMON.contains(searchText, ignoreCase = true)
-                    }
-                    // count methoduyla aranan bitkiyle eşleşen bitki sayısını döndürdük
-                    binding.textViewBulunan.text = "Bulunan : " + filteredPlant.count().toString()
+        binding.buttonArama.setOnClickListener {
+            runOnUiThread {
+                val searchText = binding.searchView.query.toString()
+                filteredPlant = plantList.filter { plant ->
+                    plant.COMMON.contains(searchText, ignoreCase = true)
                 }
+                // count methoduyla aranan bitkiyle eşleşen bitki sayısını döndürdük
+                binding.textViewBulunan.text = "Bulunan : " + filteredPlant.count().toString()
             }
+        }
     }
 
     private fun detail(){
@@ -72,8 +72,8 @@ class MainActivity : AppCompatActivity() {
     }
 }
 
-/*{
-                fun search() {
+/*
+        fun search() {
         // Kod Uı ile etkileşim ierdiği ve UI performansını etkileyecek uzun işlemler ierdiği için runOnUiThread
         runOnUiThread {
             binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
@@ -96,7 +96,4 @@ class MainActivity : AppCompatActivity() {
             })
         }
     }
-
-
-
  */
