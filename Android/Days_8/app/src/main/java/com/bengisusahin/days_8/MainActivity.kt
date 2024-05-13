@@ -24,8 +24,8 @@ import java.lang.Exception
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var sharedPreferences: SharedPreferences
-    lateinit var editor: Editor
+//    lateinit var sharedPreferences: SharedPreferences
+//    lateinit var editor: Editor
 
     lateinit var iDummyService : IDummyService
     lateinit var txtUserName: TextView
@@ -43,8 +43,9 @@ class MainActivity : AppCompatActivity() {
         txtPassword = findViewById(R.id.txtPassword)
         btnLogin = findViewById(R.id.btnLogin)
 
-        sharedPreferences = getSharedPreferences("customer", MODE_PRIVATE)
-        editor = sharedPreferences.edit()
+        //sharedPreferences = getSharedPreferences("customer", MODE_PRIVATE)
+        //editor = sharedPreferences.edit()
+        SharedPrefHelper.init(this)
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -69,14 +70,16 @@ class MainActivity : AppCompatActivity() {
                     Log.d("user", res.body().toString())
                     val dt = res.body()
                     dt?.let {
-                        val gson = Gson()
-                        val stUser = gson.toJson(it)
+                        //val gson = Gson()
+                        //val stUser = gson.toJson(it)
                         txtUserName.text = "${it.firstName} ${it.lastName}"
-                        editor.putString("token", it.token)
-                        editor.putString("name", "${it.firstName} ${it.lastName}")
+                        //editor.putString("token", it.token)
+                        //editor.putString("name", "${it.firstName} ${it.lastName}")
                         // elimizde bir string oldu ama ona ait bilgiler json formatında tutuldu
-                        editor.putString("user",stUser)
-                        editor.commit()
+                        //editor.putString("user",stUser)
+                        // loginden sonra kullanıcının kaydı yapıldı
+                        SharedPrefHelper.setUser(it)
+                        //editor.commit()
                     }
                 }
 

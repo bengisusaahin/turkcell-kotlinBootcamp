@@ -12,7 +12,7 @@ import com.google.gson.Gson
 
 class WelcomeActivity : AppCompatActivity() {
 
-    lateinit var sharedPreferences: SharedPreferences
+    //lateinit var sharedPreferences: SharedPreferences
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -23,25 +23,30 @@ class WelcomeActivity : AppCompatActivity() {
             insets
         }
 
-        sharedPreferences = getSharedPreferences("customer", MODE_PRIVATE)
+        //sharedPreferences = getSharedPreferences("customer", MODE_PRIVATE)
+        SharedPrefHelper.init(this)
 
         //val token = sharedPreferences.getString("token", "")
-        val token = sharedPreferences.getString("token", null)
-        val stUser = sharedPreferences.getString("user", null)
-        stUser?.let {
-            val gson = Gson()
+        //val token = sharedPreferences.getString("token", null)
+        //val stUser = sharedPreferences.getString("user", null)
+        val stUserHelper = SharedPrefHelper.getUser()
+        stUserHelper?.let {
+            //val gson = Gson()
             // jsondan kotlin nesnesine
-            val user = gson.fromJson(it, User::class.java)
-            Log.d("user", user.toString())
+            //val user = gson.fromJson(it, User::class.java)
+            Log.d("user", stUserHelper.toString())
+            // bunda direkt string olarak göstermiş oldun üstte user nesnesi olarak
+            //Log.d("user", stUser)
 
         }
 
-        token?.let {
-            if (!it.equals("")){
-                // Daha önceden token var!
-            }else{
-                // bu kişi ilk defa giriş yapıor
-            }
-        }
+//        token?.let {
+//            if (!it.equals("")){
+//                // Daha önceden token var!
+//                Log.d("token", token.toString())
+//            }else{
+//                // bu kişi ilk defa giriş yapıor
+//            }
+//        }
     }
 }
