@@ -1,6 +1,9 @@
 Teslim Tarihi: 14 Mayıs 23:59
-Swagger araştırma konusu. Swagger nedir ve nasıl kullanılır. JWT, Basic Auth yapıları swagger ile 
-nasıl test edilir. Swagger nasıl test edilir. 1 sayfa doküman.
+Swagger araştırma konusu. 
+Swagger nedir ve nasıl kullanılır. 
+JWT, Basic Auth yapıları swagger ile nasıl test edilir. 
+Swagger nasıl test edilir. 
+1 sayfa doküman.
 
 
 Sercan Çelik:
