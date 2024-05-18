@@ -42,7 +42,7 @@
                     android:id="@+id/txtView_ingredients_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Ingredients:"
+                    android:text="@string/ingredients"
                     android:textSize="20sp"
                     android:textColor="#E91E63"
                     android:textStyle="bold" />
@@ -65,7 +65,7 @@
                     android:id="@+id/txtView_instructions_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Instructions:"
+                    android:text="@string/instructions"
                     android:textSize="20sp"
                     android:textColor="#E91E63"
                     android:textStyle="bold" />
