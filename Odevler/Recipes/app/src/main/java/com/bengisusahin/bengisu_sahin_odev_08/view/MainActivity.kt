@@ -74,7 +74,7 @@ class MainActivity : AppCompatActivity() {
 
         val searchItem = menu?.findItem(R.id.search)
         val searchView = searchItem?.actionView as SearchView
-        searchView.queryHint = "Type the recipe."
+        searchView.queryHint = "Type the recipe..."
 
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             // Called when the search query is submitted
@@ -82,6 +82,7 @@ class MainActivity : AppCompatActivity() {
                 query?.let { searchText ->
                     Log.d("onQueryTextSubmit", "Search text: $searchText")
                     recipeAdapter.filter.filter(searchText)
+                    binding.swipeRefreshLayout.isEnabled = false
                 }
                 return true
             }
@@ -90,6 +91,7 @@ class MainActivity : AppCompatActivity() {
                 query?.let { searchText ->
                     Log.d("onQueryTextChange", "Search text: $searchText")
                     recipeAdapter.filter.filter(searchText)
+                    binding.swipeRefreshLayout.isEnabled = false
                 }
                 return true
             }
