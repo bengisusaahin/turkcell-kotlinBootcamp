@@ -4,6 +4,8 @@ import Product
 import Products
 import android.app.Activity
 import android.content.Context
+import android.graphics.Color
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +13,7 @@ import android.widget.ArrayAdapter
 import android.widget.ImageView
 import android.widget.TextView
 import com.bengisusahin.days_9.R
+import com.bumptech.glide.Glide
 
 class ProductAdapters(private val context:Activity, private var arr: List<Product>) :
     ArrayAdapter<Product>(context, R.layout.product_row, arr)
@@ -28,6 +31,13 @@ class ProductAdapters(private val context:Activity, private var arr: List<Produc
         r_title.setText(dt.title)
         r_price.setText("${dt.price}₺")
 
+        val url = dt.thumbnail
+        Glide.with(rootView).load(url). into(r_image)
+
+        Log.d("this", "row call")
+        rootView.setOnClickListener {
+            it.setBackgroundColor(Color.RED)
+        }
         return rootView
     }
 }

@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.bengisusahin.days_9"
+    namespace = "com.bengisusahin.days_10"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.bengisusahin.days_9"
+        applicationId = "com.bengisusahin.days_10"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
@@ -45,9 +45,4 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-    implementation (libs.retrofit)
-    implementation(libs.converter.gson)
-    implementation (libs.glide)
-
-
 }

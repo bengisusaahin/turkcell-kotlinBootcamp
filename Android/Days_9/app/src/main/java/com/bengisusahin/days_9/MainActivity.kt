@@ -1,5 +1,6 @@
 package com.bengisusahin.days_9
 
+import Product
 import Products
 import android.os.Bundle
 import android.util.Log
@@ -19,6 +20,7 @@ class MainActivity : AppCompatActivity() {
 
     lateinit var iDummyService : IDummyService
     lateinit var listViewProducts : ListView
+    lateinit var arr: List<Product>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -35,7 +37,7 @@ class MainActivity : AppCompatActivity() {
         iDummyService.getProducts().enqueue(object: Callback<Products> {
             override fun onResponse(p0: Call<Products>, p1: Response<Products>) {
                 if (p1.isSuccessful){
-                    val arr = p1.body()!!.products
+                    arr = p1.body()!!.products
                     //Log.d("arr", arr.toString())
                     val productAdapters = ProductAdapters(this@MainActivity, arr)
                     listViewProducts.adapter = productAdapters
@@ -45,8 +47,13 @@ class MainActivity : AppCompatActivity() {
             override fun onFailure(p0: Call<Products>, p1: Throwable) {
                 Log.e("getProducts", p1.message!!)
             }
-
         })
+
+        /*
+        listViewProducts.setOnItemClickListener { parent, view, position, id ->
+            Log.d("i", position.toString())
+        }
+         */
     }
 
 
