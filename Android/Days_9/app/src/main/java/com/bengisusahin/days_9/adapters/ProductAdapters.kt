@@ -20,13 +20,13 @@ class ProductAdapters(private val context:Activity, private var arr: List<Produc
         val dt = arr.get(position)
 
 
-        val r_title= rootView!!.findViewById<TextView>(R.id.r_title)
+        val r_title= rootView.findViewById<TextView>(R.id.r_title)
         val r_image= rootView.findViewById<ImageView>(R.id.r_image)
         val r_price= rootView.findViewById<TextView>(R.id.r_price)
 
 
         r_title.setText(dt.title)
-        r_price.setText("${dt.price}")
+        r_price.setText("${dt.price}₺")
 
         return rootView
     }
