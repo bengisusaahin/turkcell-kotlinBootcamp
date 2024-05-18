@@ -10,6 +10,7 @@ import androidx.core.view.WindowInsetsCompat
 import com.bengisusahin.bengisu_sahin_odev_08.R
 import com.bengisusahin.bengisu_sahin_odev_08.databinding.ActivityDetailBinding
 import com.bengisusahin.bengisu_sahin_odev_08.models.Recipe
+import com.bumptech.glide.Glide
 
 class DetailActivity : AppCompatActivity() {
 
@@ -23,6 +24,7 @@ class DetailActivity : AppCompatActivity() {
         setContentView(view)
 
         val detail = intent.getSerializableExtra("detail") as Recipe
+        // Thanks to apply func it accessed all properties of binding.
         binding.apply {
             txtViewName.text = detail.name
             txtViewIngredientsContent.text = detail.ingredients.joinToString(", ")
@@ -35,10 +37,12 @@ class DetailActivity : AppCompatActivity() {
             txtViewCaloriesPerServingContent.text = " ${detail.caloriesPerServing} calories"
             txtViewTagsContent.text = " ${detail.tags.joinToString(", ")}"
             txtViewUserIdContent.text = " ${detail.userId}"
-            txtViewImageContent.text = detail.image
             txtViewRatingContent.text = " ${detail.rating}"
             txtViewReviewCountContent.text = " ${detail.reviewCount}"
             txtViewMealTypeContent.text = " ${detail.mealType.joinToString(", ")}"
+            Glide.with(this@DetailActivity)
+                .load(detail.image)
+                .into(imageViewContent)
         }
 
     }

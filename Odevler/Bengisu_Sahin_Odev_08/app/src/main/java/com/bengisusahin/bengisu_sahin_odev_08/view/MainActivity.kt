@@ -19,7 +19,7 @@ import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var iDummyService: IDummyService
+    private lateinit var iDummyService: IDummyService
     private lateinit var binding: ActivityMainBinding
     private lateinit var recipeAdapter: RecipeAdapter
     private lateinit var recipeList: List<Recipe>
@@ -32,8 +32,10 @@ class MainActivity : AppCompatActivity() {
         setContentView(view)
 
         iDummyService = ApiClient.getClient().create(IDummyService::class.java)
+        // Fetch recipes from the server
         getRecipes()
 
+        // data is refreshed when you swipe the page from top to bottom
         swipeRefreshData()
 
     }
@@ -45,6 +47,8 @@ class MainActivity : AppCompatActivity() {
                     // val recipesResponse = response.body()
                     // Log.d("API Response", recipesResponse.toString())
                     recipeList = response.body()!!.recipes
+                    // If the recipe list is not empty, set up the adapter and list view
+                    // Else the recipe list is empty, show a message to the user
                     if (!recipeList.isNullOrEmpty()){
                         Log.d("arr", recipeList.toString())
                         recipeAdapter = RecipeAdapter(this@MainActivity, recipeList)
@@ -58,6 +62,7 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onFailure(call: Call<Recipes>, throwable: Throwable) {
+                // Log the error if fetching recipes fails
                 Log.e("getRecipes", throwable.message!!)
                 binding.swipeRefreshLayout.isRefreshing = false
             }
@@ -72,18 +77,19 @@ class MainActivity : AppCompatActivity() {
         searchView.queryHint = "Type the recipe."
 
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            // Called when the search query is submitted
             override fun onQueryTextSubmit(query: String?): Boolean {
                 query?.let { searchText ->
                     Log.d("onQueryTextSubmit", "Search text: $searchText")
-                    recipeAdapter.filter.filter(searchText.trim())
+                    recipeAdapter.filter.filter(searchText)
                 }
                 return true
             }
-
+            // Called when the search query text is changed
             override fun onQueryTextChange(query: String?): Boolean {
                 query?.let { searchText ->
                     Log.d("onQueryTextChange", "Search text: $searchText")
-                    recipeAdapter.filter.filter(searchText.trim())
+                    recipeAdapter.filter.filter(searchText)
                 }
                 return true
             }
@@ -97,42 +103,3 @@ class MainActivity : AppCompatActivity() {
         }
     }
 }
-/*
-override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.option_menu, menu)
-
-        val searchItem = menu?.findItem(R.id.search)
-        val searchView = searchItem?.actionView as SearchView
-        searchView.queryHint = "Type the recipe."
-
-        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                query?.let { searchText ->
-                    val filteredList = recipeList.filter { recipe ->
-                        recipe.name.contains(searchText, ignoreCase = true)
-                    }
-                    Log.d("onQueryTextSubmit", "Search text: $searchText, Filtered list: $filteredList")
-                    //binding.listViewRecipes.adapter = RecipeAdapter(this@MainActivity, filteredList)
-                    //recipeAdapter.setView(filteredList)
-                    recipeAdapter.filter.filter(query)
-                }
-                return true
-            }
-
-            override fun onQueryTextChange(query: String?): Boolean {
-                query?.let { searchText ->
-                    Log.d("onQueryTextChange", "Search text: $searchText")
-                    val filteredList = recipeList.filter { recipe ->
-                        recipe.toString().lowercase().contains(searchText.lowercase())
-                    }
-                    Log.d("onQueryTextChange", "Filtered list: $filteredList")
-                    //binding.listViewRecipes.adapter = RecipeAdapter(this@MainActivity, filteredList)
-                    //recipeAdapter.setView(filteredList)
-                    recipeAdapter.filter.filter(query)
-                }
-                return true
-            }
-        })
-        return super.onCreateOptionsMenu(menu)
-    }
- */

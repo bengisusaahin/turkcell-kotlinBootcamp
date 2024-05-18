@@ -1,6 +1,5 @@
 package com.bengisusahin.bengisu_sahin_odev_08.adapters
 
-import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.view.View
@@ -18,8 +17,10 @@ class RecipeAdapter(private val context: Activity, private val originalList: Lis
 
     private var filteredList: List<Recipe> = originalList
 
-    @SuppressLint("SetTextI18n")
+    // parent parameter refers to the ViewGroup to which the created view should be added
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
+        // we pass to the parent parameter the ViewGroup to which the created view should be added
+        // By using false we indicate that we do not want the view to be immediately added to the parent when it is returned
         val rootView = convertView ?: context.layoutInflater.inflate(R.layout.recipe_row, parent, false)
 
         val dt = filteredList[position]
@@ -30,35 +31,43 @@ class RecipeAdapter(private val context: Activity, private val originalList: Lis
         rowName.text = dt.name
         rowCaloriesPerServing.text = "${dt.caloriesPerServing} cal"
 
+        // Every time getView runs a click listener is set for each element
         rootView.setOnClickListener {
-            startDetailActivity(filteredList[position])
+            startDetailActivity(dt)
         }
         return rootView
     }
 
+    // ListView gets how many rows it should create when drawing itself
     override fun getCount(): Int {
         return filteredList.size
     }
 
+    // ListView uses this method when retrieving the item at a specific position
     override fun getItem(position: Int): Recipe? {
         return filteredList[position]
     }
 
+    // used to uniquely identify items
     override fun getItemId(position: Int): Long {
         return position.toLong()
     }
 
+    // When click the item in the list, it shows the details of the item
     private fun startDetailActivity(recipe: Recipe) {
         val intent = Intent(context, DetailActivity::class.java)
         intent.putExtra("detail", recipe)
         context.startActivity(intent)
     }
 
+    // performs the search and updates the list
     override fun getFilter(): Filter {
         return object : Filter() {
             override fun performFiltering(constraint: CharSequence?): FilterResults {
                 val searchText = constraint?.toString()?.trim() ?: ""
                 val filterResults = FilterResults()
+                // If the search text is empty, the original list is used
+                // Otherwise, recipes containing search text (filteredList) are used
                 filterResults.values = if (searchText.isEmpty()) {
                     originalList
                 } else {
@@ -67,8 +76,10 @@ class RecipeAdapter(private val context: Activity, private val originalList: Lis
                 return filterResults
             }
 
+            // updated filteredList and notified the adapter for the new list
             @Suppress("UNCHECKED_CAST")
             override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
+                // type conversion is safe because that the results?.values object is a List<Recipe>
                 filteredList = results?.values as List<Recipe>
                 notifyDataSetChanged()
             }

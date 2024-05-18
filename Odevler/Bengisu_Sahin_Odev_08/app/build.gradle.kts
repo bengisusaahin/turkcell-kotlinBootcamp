@@ -53,5 +53,9 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
     implementation (libs.retrofit)
     implementation(libs.converter.gson)
+    // to show images from the service
+    implementation (libs.glide)
+    annotationProcessor (libs.compiler)
+
 
 }
