@@ -35,7 +35,7 @@ class DetailActivity : AppCompatActivity() {
             txtViewDifficultyContent.text = " ${detail.difficulty}"
             txtViewCuisineContent.text = " ${detail.cuisine}"
             txtViewCaloriesPerServingContent.text = " ${detail.caloriesPerServing} calories"
-            txtViewTagsContent.text = " ${detail.tags.joinToString(", ")}"
+            txtViewTagsContent.text = "#${detail.tags.joinToString(", #")}"
             txtViewUserIdContent.text = " ${detail.userId}"
             txtViewRatingContent.text = " ${detail.rating}"
             txtViewReviewCountContent.text = " ${detail.reviewCount}"

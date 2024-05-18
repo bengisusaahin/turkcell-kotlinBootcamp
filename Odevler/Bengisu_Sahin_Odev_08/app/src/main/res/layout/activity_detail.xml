@@ -230,29 +230,6 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/txtView_tags_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/tags"
-                    android:textColor="#E91E63"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/txtView_tags_content"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text=""
-                    android:textSize="20sp" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
                     android:id="@+id/txtView_userId_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -338,6 +315,14 @@
                     android:textSize="20sp" />
 
             </LinearLayout>
+
+            <TextView
+                android:id="@+id/txtView_tags_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textSize="20sp"
+                android:layout_marginTop="10dp"/>
 
         </LinearLayout>
 
