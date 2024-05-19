@@ -19,9 +19,10 @@ import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var iDummyService : IDummyService
-    lateinit var listViewProducts : ListView
+    private lateinit var iDummyService: IDummyService
+    lateinit var listViewProducts: ListView
     lateinit var arr: MutableList<Product>
+    private lateinit var productAdapters: ProductAdapters
     // to keep track of the current skip value
     private var currentSkip = 0L
     // It determines how many products will be loaded on each page
@@ -40,6 +41,8 @@ class MainActivity : AppCompatActivity() {
 
         listViewProducts = findViewById(R.id.listViewProducts)
         arr = mutableListOf()
+        productAdapters = ProductAdapters(this, arr)
+        listViewProducts.adapter = productAdapters
         iDummyService = ApiClient.getClient().create(IDummyService::class.java)
         // Load the first page of products
         loadProducts()
@@ -63,7 +66,6 @@ class MainActivity : AppCompatActivity() {
             }
             // visibleItemCount takes item count on the page
             // totalItemCount all item in the service
-            //
             override fun onScroll(view: AbsListView?, firstVisibleItem: Int, visibleItemCount: Int, totalItemCount: Int) {
                 if (!isLoading && firstVisibleItem + visibleItemCount >= totalItemCount && totalItemCount > 0) {
                     // End has been reached, load more products
@@ -73,6 +75,7 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
+
     private fun loadProducts() {
         isLoading = true
         iDummyService.getProducts(limit, currentSkip).enqueue(object : Callback<Products> {
@@ -80,8 +83,7 @@ class MainActivity : AppCompatActivity() {
                 if (response.isSuccessful) {
                     val newProducts = response.body()?.products ?: emptyList()
                     arr.addAll(newProducts)
-                    val productAdapters = ProductAdapters(this@MainActivity, arr)
-                    listViewProducts.adapter = productAdapters
+                    productAdapters.notifyDataSetChanged()
                     // Increase currentSkip for the next page
                     currentSkip += limit
                 }
