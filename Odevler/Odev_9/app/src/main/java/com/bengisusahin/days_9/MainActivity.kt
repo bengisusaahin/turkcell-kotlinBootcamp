@@ -66,8 +66,10 @@ class MainActivity : AppCompatActivity() {
             }
             // visibleItemCount takes item count on the page
             // totalItemCount all item in the service
-            override fun onScroll(view: AbsListView?, firstVisibleItem: Int, visibleItemCount: Int, totalItemCount: Int) {
-                if (!isLoading && firstVisibleItem + visibleItemCount >= totalItemCount && totalItemCount > 0) {
+            override fun onScroll(view: AbsListView?, firstVisibleItem: Int, visibleItemCount: Int,
+                                  totalItemCount: Int) {
+                if (!isLoading && firstVisibleItem + visibleItemCount >= totalItemCount &&
+                    totalItemCount > 0) {
                     // End has been reached, load more products
                     loadProducts()
                 }
@@ -86,6 +88,11 @@ class MainActivity : AppCompatActivity() {
                     productAdapters.notifyDataSetChanged()
                     // Increase currentSkip for the next page
                     currentSkip += limit
+                    // Log the number of new products and total products
+                    Log.d("LoadProducts", "Loaded ${newProducts.size} " +
+                            "products. Total loaded: ${arr.size}")
+                } else {
+                    Log.e("LoadProducts", "Failed to load products: ${response.message()}")
                 }
                 isLoading = false
             }
