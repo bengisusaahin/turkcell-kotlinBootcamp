@@ -134,11 +134,13 @@ class MainActivity : AppCompatActivity() {
         iDummyService.filterUsers(key, value).enqueue(object : Callback<Users> {
             override fun onResponse(call: Call<Users>, response: Response<Users>) {
                 if (response.isSuccessful) {
-                    userList = response.body()!!.users
+                    userList = response.body()!!.users ?: emptyList()
                     if (!userList.isNullOrEmpty()) {
                         userAdapter = UserAdapter(userList)
                         binding.recyclerView.adapter = userAdapter
                     } else {
+                        userAdapter = UserAdapter(emptyList())
+                        binding.recyclerView.adapter = userAdapter
                         Toast.makeText(this@MainActivity, "No user found", Toast.LENGTH_SHORT).show()
                     }
                 }
