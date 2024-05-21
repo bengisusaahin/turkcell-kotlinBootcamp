@@ -7,6 +7,8 @@ import android.util.Log
 import android.widget.SearchView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -28,9 +30,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var iDummyService: IDummyService
     private lateinit var userList: List<User>
     private lateinit var userAdapter: UserAdapter
-    companion object {
-        const val FILTER_REQUEST_CODE = 1
-    }
+    private lateinit var filterActivityResultLauncher: ActivityResultLauncher<Intent>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,16 +45,18 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
-
+        // Create the Retrofit service
         iDummyService = ApiClient.getClient().create(IDummyService::class.java)
         // Fetch users from the server
         getUsers()
 
         searchUser()
-
+        // Set up ActivityResultLauncher for filtering
+        setFilterActivityResultLauncher()
+        // When the "filter" button clicked, the filter page is shown
         binding.buttonFilter.setOnClickListener {
             val intent = Intent(this, FilterActivity::class.java)
-            startActivityForResult(intent, FILTER_REQUEST_CODE)
+            filterActivityResultLauncher.launch(intent)
         }
     }
 
@@ -80,7 +82,7 @@ class MainActivity : AppCompatActivity() {
 
             override fun onFailure(call: Call<Users>, throwable: Throwable) {
                 // Log the error if fetching recipes fails
-                Log.e("getRecipes", throwable.message!!)
+                Log.e("getUsers", throwable.message!!)
             }
         })
     }
@@ -93,55 +95,35 @@ class MainActivity : AppCompatActivity() {
 
             override fun onQueryTextChange(newText: String?): Boolean {
                 newText?.let {
-                    iDummyService.searchUsers(newText.trim()).enqueue(object : Callback<Users>{
+                    val query = newText.trim().lowercase()
+                    iDummyService.searchUsers(query).enqueue(object : Callback<Users>{
                         override fun onResponse(p0: Call<Users>, res: Response<Users>) {
                             if (res.isSuccessful) {
                                 userList = res.body()!!.users
-                                userAdapter = UserAdapter(userList)
-                                binding.recyclerView.adapter = userAdapter
+                                userAdapter.updateUsersView(userList)
                             }
                         }
-
                         override fun onFailure(p0: Call<Users>, err: Throwable) {
                             Log.e("onFailureSearch",err.message.toString())
                         }
-
                     })
                 }
                 return true
             }
-
         })
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == FILTER_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
-            data?.let {
-                val key = it.getStringExtra("key")
-                val value = it.getStringExtra("value")
-
-                if (key != null && value != null) {
-                    filterUsers(key, value)
-                }
-            }
-        }else if (resultCode == RESULT_CANCELED) {
-            getUsers()
-        }
     }
 
     private fun filterUsers(key: String, value: String) {
         iDummyService.filterUsers(key, value).enqueue(object : Callback<Users> {
             override fun onResponse(call: Call<Users>, response: Response<Users>) {
                 if (response.isSuccessful) {
-                    userList = response.body()!!.users ?: emptyList()
+                    userList = response.body()!!.users
                     if (!userList.isNullOrEmpty()) {
-                        userAdapter = UserAdapter(userList)
-                        binding.recyclerView.adapter = userAdapter
+                        userAdapter.updateUsersView(userList)
                     } else {
-                        userAdapter = UserAdapter(emptyList())
-                        binding.recyclerView.adapter = userAdapter
-                        Toast.makeText(this@MainActivity, "No user found", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@MainActivity, "No user found",
+                            Toast.LENGTH_LONG).show()
+                        userAdapter.updateUsersView(userList)
                     }
                 }
             }
@@ -150,5 +132,24 @@ class MainActivity : AppCompatActivity() {
                 Log.e("filterUsers", throwable.message!!)
             }
         })
+    }
+
+    private fun setFilterActivityResultLauncher() {
+        filterActivityResultLauncher = registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == RESULT_OK) {
+                val data = result.data
+                if (data != null) {
+                    val key = data.getStringExtra("key")
+                    val value = data.getStringExtra("value")
+
+                    if (key != null && value != null) {
+                        filterUsers(key, value)
+                    }
+                }
+            } else {
+                getUsers()
+            }
+        }
     }
 }

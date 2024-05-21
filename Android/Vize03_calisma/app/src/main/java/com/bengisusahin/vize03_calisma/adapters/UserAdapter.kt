@@ -9,7 +9,7 @@ import com.bengisusahin.vize03_calisma.databinding.RecyclerRowBinding
 import com.bengisusahin.vize03_calisma.models.User
 import com.bengisusahin.vize03_calisma.view.MainActivity
 
-class UserAdapter(val userList : List<User>) : RecyclerView.Adapter<UserAdapter.UserHolder>() {
+class UserAdapter(var userList : List<User>) : RecyclerView.Adapter<UserAdapter.UserHolder>() {
 
     //class UserHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
     class UserHolder(val binding: RecyclerRowBinding) : RecyclerView.ViewHolder(binding.root){
@@ -40,5 +40,10 @@ class UserAdapter(val userList : List<User>) : RecyclerView.Adapter<UserAdapter.
     // layouta bağlandıktan sonra ne olacak
     override fun onBindViewHolder(holder: UserHolder, position: Int) {
         holder.bindItem(userList[position])
+    }
+
+    fun updateUsersView(newUsers: List<User>) {
+        userList = newUsers
+        notifyDataSetChanged()
     }
 }
