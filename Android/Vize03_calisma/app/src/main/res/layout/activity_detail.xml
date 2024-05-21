@@ -22,7 +22,7 @@
             android:id="@+id/txtView_username"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="username"
+            android:text="@string/username"
             android:textColor="#DC0424"
             android:textSize="24sp"
             android:textStyle="italic|bold"/>
@@ -36,7 +36,7 @@
                 android:id="@+id/txtView_firstName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="firstName"
+                android:text="@string/firstname"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
@@ -45,7 +45,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
-                android:text="lastName"
+                android:text="@string/lastname"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
@@ -205,13 +205,14 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp">
 
             <TextView
                 android:id="@+id/txtView_maidenName_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Maiden Name: "
+                android:text="@string/maiden_name"
                 android:textColor="#DC0424"
                 android:textSize="20sp"
                 android:textStyle="bold" />
@@ -228,13 +229,14 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_marginTop="5dp">
 
             <TextView
                 android:id="@+id/txtView_email_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Email: "
+                android:text="@string/email"
                 android:textColor="#DC0424"
                 android:textSize="20sp"
                 android:textStyle="bold" />
@@ -251,13 +253,14 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_marginTop="5dp">
 
             <TextView
                 android:id="@+id/txtView_phone_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Phone: "
+                android:text="@string/phone"
                 android:textColor="#DC0424"
                 android:textSize="20sp"
                 android:textStyle="bold" />
@@ -274,19 +277,140 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_marginTop="5dp">
 
             <TextView
                 android:id="@+id/txtView_birthDate_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Birthdate: "
+                android:text="@string/birthdate"
                 android:textColor="#DC0424"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/txtView_birthDate_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textSize="20sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="5dp">
+
+            <TextView
+                android:id="@+id/txtView_height_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/height"
+                android:textColor="#DC0424"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txtView_height_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textSize="20sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="5dp">
+
+            <TextView
+                android:id="@+id/txtView_weight_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/weight"
+                android:textColor="#DC0424"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txtView_weight_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textSize="20sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="5dp">
+
+            <TextView
+                android:id="@+id/txtView_eyeColor_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/eye_color"
+                android:textColor="#DC0424"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txtView_eyeColor_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textSize="20sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="5dp">
+
+            <TextView
+                android:id="@+id/txtView_hairColor_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/hair_color"
+                android:textColor="#DC0424"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txtView_hairColor_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textSize="20sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="5dp">
+
+            <TextView
+                android:id="@+id/txtView_hairType_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/hair_type"
+                android:textColor="#DC0424"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txtView_hairType_content"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""

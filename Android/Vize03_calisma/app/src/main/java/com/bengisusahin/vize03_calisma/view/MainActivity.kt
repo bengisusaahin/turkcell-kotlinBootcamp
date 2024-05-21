@@ -47,11 +47,11 @@ class MainActivity : AppCompatActivity() {
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
         // Create the Retrofit service
         iDummyService = ApiClient.getClient().create(IDummyService::class.java)
-        // Fetch users from the server
+
         getUsers()
 
         searchUser()
-        // Set up ActivityResultLauncher for filtering
+
         setFilterActivityResultLauncher()
         // When the "filter" button clicked, the filter page is shown
         binding.buttonFilter.setOnClickListener {
@@ -60,6 +60,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    // Fetch users from the server
     private fun getUsers() {
         iDummyService.getUsers().enqueue(object : Callback<Users> {
             override fun onResponse(call: Call<Users>, response: Response<Users>) {
@@ -87,6 +88,7 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
+    // Search users based on the given query
     private fun searchUser(){
         binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
             override fun onQueryTextSubmit(query: String?): Boolean {
@@ -113,6 +115,7 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
+    // Filters users based on the given key and value
     private fun filterUsers(key: String, value: String) {
         iDummyService.filterUsers(key, value).enqueue(object : Callback<Users> {
             override fun onResponse(call: Call<Users>, response: Response<Users>) {
@@ -122,7 +125,7 @@ class MainActivity : AppCompatActivity() {
                         userAdapter.updateUsersView(userList)
                     } else {
                         Toast.makeText(this@MainActivity, "No user found",
-                            Toast.LENGTH_LONG).show()
+                            Toast.LENGTH_SHORT).show()
                         userAdapter.updateUsersView(userList)
                     }
                 }
@@ -134,6 +137,7 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
+    // Sets up ActivityResultLauncher for handling filter results
     private fun setFilterActivityResultLauncher() {
         filterActivityResultLauncher = registerForActivityResult(
             ActivityResultContracts.StartActivityForResult()) { result ->

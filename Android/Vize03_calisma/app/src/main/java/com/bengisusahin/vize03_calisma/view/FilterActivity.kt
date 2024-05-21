@@ -22,6 +22,7 @@ class FilterActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityFilterBinding
     private var selectedBloodGroup: String? = null
+    private var isFilterMessageShown: Boolean = false
 
     private val filterKey = "key"
     private val filterValue = "value"
@@ -51,7 +52,7 @@ class FilterActivity : AppCompatActivity() {
                 setResult(RESULT_CANCELED)
                 finish()
             }
-
+            // Listens for text changes in the input fields
             editTextFirstName.addTextChangedListener(filterTextWatcher)
             editTextLastName.addTextChangedListener(filterTextWatcher)
             editTextAge.addTextChangedListener(filterTextWatcher)
@@ -59,6 +60,7 @@ class FilterActivity : AppCompatActivity() {
 
     }
 
+    // TextWatcher for handling input field changes
     private val filterTextWatcher = object : TextWatcher {
         override fun afterTextChanged(s: Editable?) {
             handleInputChange()
@@ -69,6 +71,7 @@ class FilterActivity : AppCompatActivity() {
         override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
     }
 
+    // Handles changes in input fields
     private fun handleInputChange() {
         val firstNameFilled = binding.editTextFirstName.text.isNotEmpty()
         val lastNameFilled = binding.editTextLastName.text.isNotEmpty()
@@ -81,8 +84,16 @@ class FilterActivity : AppCompatActivity() {
             editTextAge.isEnabled = !firstNameFilled && !lastNameFilled && !bloodGroupSelected
             linearLayout.isEnabled = !firstNameFilled && !lastNameFilled && !ageFilled
         }
+        if ((firstNameFilled || lastNameFilled || ageFilled || bloodGroupSelected) &&
+            !isFilterMessageShown) {
+            Toast.makeText(this, "You can enter only one filter. You will not be" +
+            " able to fill in other fields.", Toast.LENGTH_LONG).show()
+            isFilterMessageShown = true
+        }
 
     }
+
+    // When user click the "Back" button filters apply
     private fun handleButtonClick() {
         val firstName = formatName(binding.editTextFirstName.text.toString())
         val lastName = formatName(binding.editTextLastName.text.toString())
@@ -105,6 +116,7 @@ class FilterActivity : AppCompatActivity() {
         finish()
     }
 
+    // Shows an alert dialog if no filter is selected
     private fun showFilterAlertDialog() {
         val builder = AlertDialog.Builder(this)
         builder.setTitle("No Filter")
@@ -124,11 +136,13 @@ class FilterActivity : AppCompatActivity() {
         builder.show()
     }
 
+    // Sets the filter parameters to the intent
     private fun setFilter(intent: Intent, key: String, value: String) {
         intent.putExtra(filterKey, key)
         intent.putExtra(filterValue, value)
     }
-    
+
+    // Opens the bloodGroupFilter menu as popup menu
     private fun showPopup(view: View) {
         val popup = PopupMenu(this, view, Gravity.FILL)
         val inflater: MenuInflater = popup.menuInflater
@@ -142,6 +156,7 @@ class FilterActivity : AppCompatActivity() {
         popup.show()
     }
 
+    // Formats the name to capitalize the first letter and ensures JSON data compatibility.
     private fun formatName(name: String): String {
         return if (name.isNotEmpty()) {
             name.lowercase().replaceFirstChar { it.uppercase() }
@@ -149,6 +164,4 @@ class FilterActivity : AppCompatActivity() {
             name
         }
     }
-
-
 }

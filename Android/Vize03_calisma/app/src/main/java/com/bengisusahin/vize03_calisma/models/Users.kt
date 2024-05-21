@@ -1,5 +1,6 @@
 package com.bengisusahin.vize03_calisma.models
 
+import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
 data class Users (
@@ -115,10 +116,12 @@ enum class Color {
     Chestnut
 }
 
+// because of the name is "Very curly" in dummyJson I used SerializedName
 enum class Type {
     Curly,
     Straight,
     Strands,
+    @SerializedName("Very curly")
     VeryCurly,
     Wavy
 }

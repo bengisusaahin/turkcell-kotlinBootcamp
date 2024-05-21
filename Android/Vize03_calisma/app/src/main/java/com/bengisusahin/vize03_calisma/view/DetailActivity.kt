@@ -32,12 +32,16 @@ class DetailActivity : AppCompatActivity() {
             txtViewFirstName.text = detail.firstName
             txtViewLastName.text = detail.lastName
             txtViewMaidenNameContent.text = detail.maidenName
-            txtViewAgeContent.text = " ${detail.age}"
-            txtViewGenderContent.text = " ${detail.gender}"
+            txtViewAgeContent.text = "${detail.age}"
+            txtViewGenderContent.text = "${detail.gender}"
             txtViewEmailContent.text = detail.email
             txtViewPhoneContent.text = detail.phone
             txtViewBirthDateContent.text = detail.birthDate
             txtViewBloodGroupContent.text = detail.bloodGroup
+            txtViewHeightContent.text = detail.height.toString()
+            txtViewWeightContent.text = detail.weight.toString()
+            txtViewHairColorContent.text = detail.hair.color.toString()
+            txtViewHairTypeContent.text = detail.hair.type.toString()
             Glide.with(this@DetailActivity)
                 .load(detail.image)
                 .into(imageView)
