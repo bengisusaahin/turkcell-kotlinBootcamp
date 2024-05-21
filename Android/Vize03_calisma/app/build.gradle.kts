@@ -55,4 +55,7 @@ dependencies {
     // implementation("com.squareup.retrofit2:converter-gson:2.11.0")
     implementation(libs.converter.gson)
     implementation (libs.glide)
+    // to implement border to cardview
+    implementation (libs.material.v100)
+
 }

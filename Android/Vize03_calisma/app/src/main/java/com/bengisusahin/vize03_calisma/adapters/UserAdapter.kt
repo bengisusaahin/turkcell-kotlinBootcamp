@@ -9,6 +9,7 @@ import com.bengisusahin.vize03_calisma.databinding.RecyclerRowBinding
 import com.bengisusahin.vize03_calisma.models.User
 import com.bengisusahin.vize03_calisma.view.DetailActivity
 import com.bengisusahin.vize03_calisma.view.MainActivity
+import com.bumptech.glide.Glide
 
 class UserAdapter(var userList : List<User>) : RecyclerView.Adapter<UserAdapter.UserHolder>() {
 
@@ -16,6 +17,9 @@ class UserAdapter(var userList : List<User>) : RecyclerView.Adapter<UserAdapter.
     class UserHolder(val binding: RecyclerRowBinding) : RecyclerView.ViewHolder(binding.root){
         fun bindItem(user:User){
             binding.recyclerViewTxtUserName.text = user.username
+            Glide.with(binding.root.context)
+                .load(user.image)
+                .into(binding.rwImageViewUserImage)
 
             binding.root.setOnClickListener {
                 Log.d("bindItem", "onBindViewHolder: click $user")

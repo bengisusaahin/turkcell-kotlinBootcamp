@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">Vize03_calisma</string>
     <string name="select_the_blood_group">Select the blood group</string>
+    <string name="user_profile_image">User Profile Image</string>
+    <string name="username">userName</string>
+    <string name="age">Age:</string>
 </resources>

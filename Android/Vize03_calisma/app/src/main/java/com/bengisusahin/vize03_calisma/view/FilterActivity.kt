@@ -1,5 +1,6 @@
 package com.bengisusahin.vize03_calisma.view
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
@@ -37,21 +38,24 @@ class FilterActivity : AppCompatActivity() {
             insets
         }
 
-        binding.linearLayout.setOnClickListener {
-            showPopup(it)
-        }
+        binding.apply {
+            linearLayout.setOnClickListener {
+                showPopup(it)
+            }
 
-        binding.buttonBack.setOnClickListener {
-            handleButtonClick()
-        }
+            buttonBack.setOnClickListener {
+                handleButtonClick()
+            }
 
-        binding.buttonClear.setOnClickListener {
-            setResult(RESULT_CANCELED)
-            finish()
+            buttonClear.setOnClickListener {
+                setResult(RESULT_CANCELED)
+                finish()
+            }
+
+            editTextFirstName.addTextChangedListener(filterTextWatcher)
+            editTextLastName.addTextChangedListener(filterTextWatcher)
+            editTextAge.addTextChangedListener(filterTextWatcher)
         }
-        binding.editTextFirstName.addTextChangedListener(filterTextWatcher)
-        binding.editTextLastName.addTextChangedListener(filterTextWatcher)
-        binding.editTextAge.addTextChangedListener(filterTextWatcher)
 
     }
 
@@ -71,10 +75,13 @@ class FilterActivity : AppCompatActivity() {
         val ageFilled = binding.editTextAge.text.isNotEmpty()
         val bloodGroupSelected = !selectedBloodGroup.isNullOrEmpty()
 
-        binding.editTextFirstName.isEnabled = !lastNameFilled && !ageFilled && !bloodGroupSelected
-        binding.editTextLastName.isEnabled = !firstNameFilled && !ageFilled && !bloodGroupSelected
-        binding.editTextAge.isEnabled = !firstNameFilled && !lastNameFilled && !bloodGroupSelected
-        binding.linearLayout.isEnabled = !firstNameFilled && !lastNameFilled && !ageFilled
+        binding.apply {
+            editTextFirstName.isEnabled = !lastNameFilled && !ageFilled && !bloodGroupSelected
+            editTextLastName.isEnabled = !firstNameFilled && !ageFilled && !bloodGroupSelected
+            editTextAge.isEnabled = !firstNameFilled && !lastNameFilled && !bloodGroupSelected
+            linearLayout.isEnabled = !firstNameFilled && !lastNameFilled && !ageFilled
+        }
+
     }
     private fun handleButtonClick() {
         val firstName = formatName(binding.editTextFirstName.text.toString())
@@ -89,16 +96,32 @@ class FilterActivity : AppCompatActivity() {
                 age.isNotEmpty() -> setFilter(this, "age", age)
                 !bloodGroup.isNullOrEmpty() -> setFilter(this, "bloodGroup", bloodGroup)
                 else -> {
-                    Toast.makeText(this@FilterActivity, "Please fill only one filter.",
-                        Toast.LENGTH_LONG).show()
-                    setResult(RESULT_CANCELED)
-                    finish()
+                    showFilterAlertDialog()
                     return
                 }
             }
         }
         setResult(RESULT_OK, intent)
         finish()
+    }
+
+    private fun showFilterAlertDialog() {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("No Filter")
+        builder.setMessage("You didn't make any filter selection. Do you want to clear the " +
+                "previous filter?")
+        builder.setPositiveButton("Yes") { _, _ ->
+            setResult(RESULT_CANCELED)
+            finish()
+        }
+        builder.setNegativeButton("No") { _, _ ->
+            setResult(RESULT_OK, intent)
+            finish()
+        }
+        builder.setNeutralButton("Cancel") { dialog, _ ->
+            dialog.dismiss()
+        }
+        builder.show()
     }
 
     private fun setFilter(intent: Intent, key: String, value: String) {
