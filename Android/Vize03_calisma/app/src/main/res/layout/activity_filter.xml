@@ -97,7 +97,7 @@
         app:layout_constraintTop_toBottomOf="@+id/editTextAge">
 
         <ImageView
-            android:id="@+id/imageViewBloodType"
+            android:id="@+id/imageViewBloodGroup"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:src="@drawable/blood_type"

@@ -15,7 +15,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:cardBackgroundColor="#FDEAED"
+        app:cardBackgroundColor="#FDEBEE"
         app:cardCornerRadius="10dp">
 
         <TextView
@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:text="userName"
             android:textColor="#C3021F"
-            android:textStyle="italic"
+            android:textStyle="italic|bold"
             android:layout_margin="10dp"
             android:textSize="20sp"
             />

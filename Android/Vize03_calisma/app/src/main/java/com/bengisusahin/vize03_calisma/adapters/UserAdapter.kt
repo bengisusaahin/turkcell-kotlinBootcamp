@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bengisusahin.vize03_calisma.databinding.RecyclerRowBinding
 import com.bengisusahin.vize03_calisma.models.User
+import com.bengisusahin.vize03_calisma.view.DetailActivity
 import com.bengisusahin.vize03_calisma.view.MainActivity
 
 class UserAdapter(var userList : List<User>) : RecyclerView.Adapter<UserAdapter.UserHolder>() {
@@ -19,7 +20,8 @@ class UserAdapter(var userList : List<User>) : RecyclerView.Adapter<UserAdapter.
             binding.root.setOnClickListener {
                 Log.d("bindItem", "onBindViewHolder: click $user")
                 val context = it.context
-                val intent = Intent(context, MainActivity::class.java)
+                val intent = Intent(context, DetailActivity::class.java)
+                intent.putExtra("userDetail", user)
                 context.startActivity(intent)
             }
         }

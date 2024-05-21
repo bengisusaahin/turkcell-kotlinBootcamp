@@ -1,5 +1,7 @@
 package com.bengisusahin.vize03_calisma.models
 
+import java.io.Serializable
+
 data class Users (
     val users: List<User>,
     val total: Long,
@@ -36,7 +38,7 @@ data class User (
     val ssn: String,
     val userAgent: String,
     val crypto: Crypto
-)
+) : Serializable
 
 data class Address (
     val address: String,
@@ -44,12 +46,12 @@ data class Address (
     val coordinates: Coordinates,
     val postalCode: String,
     val state: String
-)
+) : Serializable
 
 data class Coordinates (
     val lat: Double,
     val lng: Double
-)
+) : Serializable
 
 data class Bank (
     val cardExpire: String,
@@ -57,20 +59,20 @@ data class Bank (
     val cardType: String,
     val currency: String,
     val iban: String
-)
+) : Serializable
 
 data class Company (
     val address: Address,
     val department: String,
     val name: String,
     val title: String
-)
+) : Serializable
 
 data class Crypto (
     val coin: Coin,
     val wallet: Wallet,
     val network: Network
-)
+) : Serializable
 
 enum class Coin {
     Bitcoin
@@ -96,14 +98,14 @@ enum class EyeColor {
 }
 
 enum class Gender {
-    Female,
-    Male
+    female,
+    male
 }
 
 data class Hair (
     val color: Color,
     val type: Type
-)
+) : Serializable
 
 enum class Color {
     Auburn,
