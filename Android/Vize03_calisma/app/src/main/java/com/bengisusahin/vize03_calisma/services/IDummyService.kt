@@ -15,7 +15,7 @@ interface IDummyService {
     @GET("users/search")
     fun searchUsers(@Query("q") searchText: String): Call<Users>
 
-    //
+    // Sends a request to filter users based on the provided key and value
     @GET("users/filter")
     fun filterUsers(@Query("key") key: String, @Query("value") value: String): Call<Users>
 }
