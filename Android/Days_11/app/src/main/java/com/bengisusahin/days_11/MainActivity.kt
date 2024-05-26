@@ -20,7 +20,32 @@ class MainActivity : AppCompatActivity() {
         }
 
         val contactService = ContactService(this)
-        val status = contactService.addContact("Ali", "Bilmem", 30, "Red")
-        Log.d("addContact", "$status")
+        // val status = contactService.addContact("Ali", "Bilmem", 30, "red")
+        //val status = contactService.addContact("Erdal", "Bilki", 35, "red")
+        //Log.d("addContact", "$status")
+
+//        val deleteStatus = contactService.deleteContact(4)
+//        Log.d("deleteStatus", "$deleteStatus")
+//
+//        val updateStatus = contactService.updateContact(11, "Zehra", "Bilir", 30, "blue")
+//        // updateStatus = 1 ise güncelleme başarılı olmuştur
+//        Log.d("updateStatus", "$updateStatus")
+//
+//        val arrContacts = contactService.getContacts()
+//        for (contact in arrContacts) {
+//            Log.d("Contact", contact.toString())
+//        }
+
+        /*
+        // isminde de soyisminde de ze varsa onu öne alır sıralamada gösterirken
+        val arrContacts = contactService.searchContacts("ze")
+        for (contact in arrContacts) {
+            Log.d("Contact", contact.toString())
+        }
+
+         */
+
+        val item =contactService.singleContact("Zehra", "Bilir")
+        Log.d("single", item.toString())
     }
 }
