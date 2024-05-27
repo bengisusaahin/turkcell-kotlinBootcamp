@@ -12,6 +12,7 @@ open class DB(context: Context) :SQLiteOpenHelper(context, DATABASE_NAME, null, 
         private val DATABASE_VERSION = 1
     }
 
+    // sürekli calismaz program ilk ayaga kalktiginda
     override fun onCreate(db: SQLiteDatabase?) {
         val contactsSql = "CREATE TABLE \"contacts\" (\n" +
                 "\t\"cid\"\tINTEGER,\n" +

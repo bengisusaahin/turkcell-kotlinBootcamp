@@ -24,17 +24,17 @@ class MainActivity : AppCompatActivity() {
         //val status = contactService.addContact("Erdal", "Bilki", 35, "red")
         //Log.d("addContact", "$status")
 
-//        val deleteStatus = contactService.deleteContact(4)
+//        val deleteStatus = contactService.deleteContact(9)
 //        Log.d("deleteStatus", "$deleteStatus")
 //
 //        val updateStatus = contactService.updateContact(11, "Zehra", "Bilir", 30, "blue")
 //        // updateStatus = 1 ise güncelleme başarılı olmuştur
 //        Log.d("updateStatus", "$updateStatus")
 //
-//        val arrContacts = contactService.getContacts()
-//        for (contact in arrContacts) {
-//            Log.d("Contact", contact.toString())
-//        }
+        val arrContacts = contactService.getContacts()
+        for (contact in arrContacts) {
+            Log.d("Contact", contact.toString())
+        }
 
         /*
         // isminde de soyisminde de ze varsa onu öne alır sıralamada gösterirken
@@ -45,7 +45,7 @@ class MainActivity : AppCompatActivity() {
 
          */
 
-        val item =contactService.singleContact("Zehra", "Bilir")
-        Log.d("single", item.toString())
+//        val item = contactService.singleContact("Zehra", "Bilir")
+//        Log.d("single", item.toString())
     }
 }
