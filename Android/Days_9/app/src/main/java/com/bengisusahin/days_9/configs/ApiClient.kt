@@ -8,6 +8,11 @@ import retrofit2.converter.gson.GsonConverterFactory
 object ApiClient {
 
     private val Base_URL = "https://dummyjson.com/"
+    private val client = OkHttpClient
+        .Builder()
+        .readTimeout(60, TimeUnit.SECONDS)
+        .build()
+
     private val retrofit: Retrofit by lazy {
         Retrofit
             .Builder()
@@ -19,10 +24,7 @@ object ApiClient {
     // bunu da yapabilirsin ama dışardan erişip başlatılabilir ve null girebilir sıkıntı olabilir
     //lateinit var retrofit: Retrofit
 
-    private val client = OkHttpClient
-        .Builder()
-        .readTimeout(60, TimeUnit.SECONDS)
-        .build()
+
 
     fun getClient(): Retrofit {
 //        if (retrofit == null) {
