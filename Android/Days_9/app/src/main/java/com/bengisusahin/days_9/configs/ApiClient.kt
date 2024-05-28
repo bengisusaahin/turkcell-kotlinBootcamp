@@ -24,8 +24,6 @@ object ApiClient {
     // bunu da yapabilirsin ama dışardan erişip başlatılabilir ve null girebilir sıkıntı olabilir
     //lateinit var retrofit: Retrofit
 
-
-
     fun getClient(): Retrofit {
 //        if (retrofit == null) {
 //            retrofit = Retrofit

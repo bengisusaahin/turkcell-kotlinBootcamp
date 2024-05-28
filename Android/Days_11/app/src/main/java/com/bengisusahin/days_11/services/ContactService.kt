@@ -53,6 +53,7 @@ class ContactService(context: Context) : DB(context) {
     fun getContacts() : List<Contact> {
         val db = this.readableDatabase
         val arrayList = mutableListOf<Contact>()
+        // cursor = veritabanındaki database in içindeki veriyi yakalayabilecek olan mekanizma
         //val cursorQ = db.query("contacts", null, null, null, null, null, null)
         val cursor = db.rawQuery("SELECT * FROM contacts", null)
         while (cursor.moveToNext()) {
