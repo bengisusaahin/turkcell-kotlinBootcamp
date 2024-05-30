@@ -2,17 +2,18 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="#FFFFFF"
     android:id="@+id/main"
-    android:padding="24dp"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.AddNoteActivity">
+    android:padding="24dp"
+    android:background="#FFFFFF"
+    tools:context=".view.DetailActivity">
 
     <EditText
-        android:id="@+id/titleEditText"
+        android:id="@+id/edit_text_title"
         android:layout_width="0dp"
         android:layout_height="60dp"
+        android:layout_marginTop="24dp"
         android:background="@drawable/custom_input"
         android:ems="10"
         android:hint="@string/title"
@@ -20,38 +21,37 @@
         android:paddingStart="24dp"
         android:paddingEnd="24dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/contentEditText"
+        android:id="@+id/edit_text_content"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginTop="8dp"
         android:background="@drawable/custom_input"
         android:ems="10"
-        android:layout_marginTop="8dp"
         android:gravity="top|start"
         android:hint="@string/content"
         android:inputType="textMultiLine"
         android:paddingStart="24dp"
         android:paddingTop="16dp"
         android:paddingEnd="24dp"
-        app:layout_constraintBottom_toTopOf="@+id/save_button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/titleEditText" />
+        app:layout_constraintBottom_toTopOf="@+id/delete_button"
+        app:layout_constraintEnd_toEndOf="@+id/edit_text_title"
+        app:layout_constraintStart_toStartOf="@+id/edit_text_title"
+        app:layout_constraintTop_toBottomOf="@+id/edit_text_title" />
 
     <Button
-        android:id="@+id/save_button"
+        android:id="@+id/delete_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="@string/save"
+        android:text="@string/delete"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/contentEditText" />
+        app:layout_constraintTop_toBottomOf="@+id/edit_text_content" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

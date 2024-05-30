@@ -43,10 +43,25 @@ class MainActivity : AppCompatActivity() {
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
         binding.recyclerView.adapter = noteAdapter
 
+        noteAdapter.onNoteClick = { note ->
+            val intent = Intent(this, DetailActivity::class.java)
+            intent.putExtra("noteId", note.nid)
+            startActivity(intent)
+        }
+
         binding.floatingActionAddNoteButton.setOnClickListener {
             val intent = Intent(this, AddNoteActivity::class.java)
             intent.putExtra("userId", userId)
             startActivity(intent)
         }
+    }
+
+    // runs after onPause when the user returns to the activity
+    override fun onResume() {
+        super.onResume()
+        // Update the notes list and refresh the RecyclerView after updating the notes
+        allNotes.clear()
+        allNotes.addAll(noteService.getNotesForUser(userId))
+        noteAdapter.notifyDataSetChanged()
     }
 }

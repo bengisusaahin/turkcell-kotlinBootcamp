@@ -1,5 +1,6 @@
 package com.bengisusahin.odev_10.view
 
+import android.app.Activity
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
@@ -33,6 +34,8 @@ class AddNoteActivity : AppCompatActivity() {
                 binding.contentEditText.text.clear()
 
                 // Not eklendikten sonra RecyclerView'i güncelle
+                setResult(Activity.RESULT_OK)
+                finish()
             }
         }
     }

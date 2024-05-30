@@ -10,10 +10,23 @@ import com.bengisusahin.odev_10.databinding.RecyclerRowNoteBinding
 import com.bengisusahin.odev_10.models.Note
 
 class NoteAdapter(private var notes: List<Note>) : RecyclerView.Adapter<NoteAdapter.NoteViewHolder>() {
-    class NoteViewHolder(val binding: RecyclerRowNoteBinding) : RecyclerView.ViewHolder(binding.root) {
+
+    var onNoteClick: ((Note) -> Unit)? = null
+
+    // inner class can access to the outer class properties
+    // because access to the onNoteClick this is inner class
+    inner class NoteViewHolder(val binding: RecyclerRowNoteBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bindItem(note: Note) {
             binding.recyclerViewNoteTitle.text = note.title
             binding.recyclerViewNoteContent.text = note.content
+        }
+        init {
+            binding.root.setOnClickListener {
+                val position = adapterPosition
+                if (position != RecyclerView.NO_POSITION) {
+                    onNoteClick?.invoke(notes[position])
+                }
+            }
         }
     }
 
@@ -30,8 +43,4 @@ class NoteAdapter(private var notes: List<Note>) : RecyclerView.Adapter<NoteAdap
         holder.bindItem(notes[position])
     }
 
-    fun updateNotes(newNotes: List<Note>) {
-        notes = newNotes
-        notifyDataSetChanged()
-    }
 }
