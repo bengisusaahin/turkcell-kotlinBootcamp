@@ -42,7 +42,7 @@ open class DB(private val context: Context) :
                 "$COLUMN_USER_ID_FK INTEGER, " +
                 "$COLUMN_NOTE_TITLE TEXT, " +
                 "$COLUMN_NOTE_CONTENT TEXT," +
-                //"$COLUMN_NOTE_DATE TEXT, " +
+                "$COLUMN_NOTE_DATE TEXT, " +
                 "FOREIGN KEY($COLUMN_USER_ID_FK) REFERENCES $TABLE_USERS($COLUMN_USER_ID))"
         db?.execSQL(createNotesTableQuery)
     }

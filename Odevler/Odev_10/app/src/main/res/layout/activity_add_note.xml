@@ -19,17 +19,34 @@
         android:inputType="text"
         android:paddingStart="24dp"
         android:paddingEnd="24dp"
+        app:layout_constraintBottom_toTopOf="@+id/dateEditText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/dateEditText"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/custom_input"
+        android:clickable="true"
+        android:ems="10"
+        android:focusable="false"
+        android:hint="@string/day_month_year"
+        android:paddingStart="24dp"
+        app:layout_constraintBottom_toTopOf="@+id/contentEditText"
+        app:layout_constraintEnd_toEndOf="@+id/titleEditText"
+        app:layout_constraintStart_toStartOf="@+id/titleEditText"
+        app:layout_constraintTop_toBottomOf="@+id/titleEditText" />
 
     <EditText
         android:id="@+id/contentEditText"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@drawable/custom_input"
-        android:ems="10"
         android:layout_marginTop="8dp"
+        android:ems="10"
         android:gravity="top|start"
         android:hint="@string/content"
         android:inputType="textMultiLine"
@@ -40,13 +57,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/titleEditText" />
+        app:layout_constraintTop_toBottomOf="@+id/dateEditText" />
 
     <Button
         android:id="@+id/save_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:layout_marginBottom="24dp"
         android:text="@string/save"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

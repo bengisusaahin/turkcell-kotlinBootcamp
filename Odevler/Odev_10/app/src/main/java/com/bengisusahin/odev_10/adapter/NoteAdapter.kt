@@ -18,6 +18,7 @@ class NoteAdapter(private var notes: List<Note>) : RecyclerView.Adapter<NoteAdap
     inner class NoteViewHolder(val binding: RecyclerRowNoteBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bindItem(note: Note) {
             binding.recyclerViewNoteTitle.text = note.title
+            binding.recyclerViewNoteDate.text = note.date
             binding.recyclerViewNoteContent.text = note.content
         }
         init {
@@ -41,6 +42,11 @@ class NoteAdapter(private var notes: List<Note>) : RecyclerView.Adapter<NoteAdap
 
     override fun onBindViewHolder(holder: NoteViewHolder, position: Int) {
         holder.bindItem(notes[position])
+    }
+
+    fun updateNotes(newNotes: List<Note>) {
+        this.notes = newNotes
+        notifyDataSetChanged()
     }
 
 }

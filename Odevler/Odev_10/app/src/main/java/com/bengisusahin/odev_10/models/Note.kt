@@ -5,5 +5,5 @@ data class Note(
     val uid: Int,
     val title: String,
     val content: String,
-    //val date: String
+    val date: String
 )

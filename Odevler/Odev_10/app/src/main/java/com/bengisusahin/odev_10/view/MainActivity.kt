@@ -3,6 +3,7 @@ package com.bengisusahin.odev_10.view
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.SearchView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -54,6 +55,18 @@ class MainActivity : AppCompatActivity() {
             intent.putExtra("userId", userId)
             startActivity(intent)
         }
+
+        binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                performSearch(query)
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                performSearch(newText)
+                return true
+            }
+        })
     }
 
     // runs after onPause when the user returns to the activity
@@ -63,5 +76,16 @@ class MainActivity : AppCompatActivity() {
         allNotes.clear()
         allNotes.addAll(noteService.getNotesForUser(userId))
         noteAdapter.notifyDataSetChanged()
+    }
+
+    private fun performSearch(query: String?) {
+        val trimmedQuery = query?.trim()
+        if (trimmedQuery.isNullOrEmpty()) {
+            // If the query is empty after trimming, do nothing and return the current list
+            noteAdapter.updateNotes(allNotes)
+        } else {
+            val filteredNotes = noteService.searchNotes(trimmedQuery)
+            noteAdapter.updateNotes(filteredNotes)
+        }
     }
 }

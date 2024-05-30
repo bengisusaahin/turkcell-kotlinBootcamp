@@ -1,6 +1,8 @@
 package com.bengisusahin.odev_10.view
 
+import android.app.AlertDialog
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -37,7 +39,28 @@ class DetailActivity : AppCompatActivity() {
         }
 
         binding.deleteButton.setOnClickListener {
-            noteService.deleteNoteById(noteId)
+            AlertDialog.Builder(this)
+                .setTitle("Delete Note")
+                .setMessage("Are you sure you want to delete this note?")
+                .setPositiveButton("Yes") { _, _ ->
+                    noteService.deleteNoteById(noteId)
+                    Toast.makeText(this, "Note deleted", Toast.LENGTH_SHORT).show()
+                    finish()
+                }
+                .setNegativeButton("No",){ _, _ ->
+                    finish()
+                }
+                .setNeutralButton("Cancel", ){dialog, _ ->
+                    dialog.dismiss()
+                }
+                .show()
+        }
+
+        binding.updateButton.setOnClickListener {
+            val title = binding.editTextTitle.text.toString()
+            val content = binding.editTextContent.text.toString()
+            noteService.updateNoteById(noteId, title, content)
+            Toast.makeText(this, "Note updated", Toast.LENGTH_SHORT).show()
             finish()
         }
     }

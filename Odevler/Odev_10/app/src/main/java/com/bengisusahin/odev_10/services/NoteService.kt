@@ -7,36 +7,17 @@ import com.bengisusahin.odev_10.models.Note
 
 class NoteService(context: Context) : DB(context) {
 
-    fun addNote(uid: Int, title: String, content: String): Long {
+    fun addNote(uid: Int, title: String, content: String, date: String): Long {
         val db = this.writableDatabase
         val contentValues = ContentValues().apply {
             put(COLUMN_USER_ID_FK, uid)
             put(COLUMN_NOTE_TITLE, title)
             put(COLUMN_NOTE_CONTENT, content)
-            //put(COLUMN_NOTE_DATE, date )
+            put(COLUMN_NOTE_DATE, date )
         }
         val effectRow = db.insert(TABLE_NOTES, null, contentValues)
         db.close()
         return effectRow
-    }
-
-    fun getNotes(): MutableList<Note> {
-        val db = this.readableDatabase
-        val cursor = db.rawQuery("SELECT * FROM $TABLE_NOTES", null)
-        val notes = mutableListOf<Note>()
-        while (cursor.moveToNext()) {
-            val note = Note(
-                cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_NOTE_ID)),
-                cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_USER_ID_FK)),
-                cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_NOTE_TITLE)),
-                cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_NOTE_CONTENT))
-                //cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_NOTE_DATE))
-            )
-            notes.add(note)
-        }
-        cursor.close()
-        db.close()
-        return notes
     }
 
     fun getNotesForUser(uid: Int): MutableList<Note> {
@@ -48,8 +29,8 @@ class NoteService(context: Context) : DB(context) {
                 cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_NOTE_ID)),
                 cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_USER_ID_FK)),
                 cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_NOTE_TITLE)),
-                cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_NOTE_CONTENT))
-                //cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_NOTE_DATE))
+                cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_NOTE_CONTENT)),
+                cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_NOTE_DATE))
             )
             notes.add(note)
         }
@@ -65,8 +46,8 @@ class NoteService(context: Context) : DB(context) {
                 cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_NOTE_ID)),
                 cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_USER_ID_FK)),
                 cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_NOTE_TITLE)),
-                cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_NOTE_TITLE))
-                //cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_NOTE_DATE))
+                cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_NOTE_CONTENT)),
+                cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_NOTE_DATE))
             )
         } else {
             null
@@ -76,21 +57,39 @@ class NoteService(context: Context) : DB(context) {
         return note
     }
 
-    fun updateNote(note: Note): Int {
+    fun updateNoteById(nid: Int, title: String, content: String): Int {
         val db = this.writableDatabase
         val values = ContentValues().apply {
-            put(COLUMN_NOTE_TITLE, note.title)
-            put(COLUMN_NOTE_CONTENT, note.content)
+            put(COLUMN_NOTE_TITLE, title)
+            put(COLUMN_NOTE_CONTENT, content)
         }
-        val updateStatus = db.update(TABLE_NOTES, values, "$COLUMN_NOTE_ID = ?", arrayOf(note.nid.toString()))
+        val updateStatus = db.update(TABLE_NOTES, values, "$COLUMN_NOTE_ID = ?", arrayOf(nid.toString()))
         db.close()
         return updateStatus
     }
-
     fun deleteNoteById(nid: Int): Int {
         val db = this.writableDatabase
         val deleteStatus = db.delete(TABLE_NOTES, "$COLUMN_NOTE_ID = ?", arrayOf(nid.toString()))
         db.close()
         return deleteStatus
+    }
+
+    fun searchNotes(q: String): MutableList<Note> {
+        val db = this.readableDatabase
+        val cursor = db.rawQuery("SELECT * FROM $TABLE_NOTES WHERE $COLUMN_NOTE_TITLE LIKE '%$q%' or $COLUMN_NOTE_CONTENT LIKE '%$q%'", null)
+        val notes = mutableListOf<Note>()
+        while (cursor.moveToNext()) {
+            val note = Note(
+                cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_NOTE_ID)),
+                cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_USER_ID_FK)),
+                cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_NOTE_TITLE)),
+                cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_NOTE_CONTENT)),
+                cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_NOTE_DATE))
+            )
+            notes.add(note)
+        }
+        cursor.close()
+        db.close()
+        return notes
     }
 }
