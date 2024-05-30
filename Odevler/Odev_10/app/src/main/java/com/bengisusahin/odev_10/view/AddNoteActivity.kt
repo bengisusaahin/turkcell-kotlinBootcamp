@@ -1,7 +1,6 @@
 package com.bengisusahin.odev_10.view
 
 import android.app.Activity
-import android.app.DatePickerDialog
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -11,9 +10,7 @@ import com.bengisusahin.odev_10.adapter.NoteAdapter
 import com.bengisusahin.odev_10.databinding.ActivityAddNoteBinding
 import com.bengisusahin.odev_10.models.Note
 import com.bengisusahin.odev_10.services.NoteService
-import java.text.SimpleDateFormat
-import java.util.Calendar
-import java.util.Locale
+import com.bengisusahin.odev_10.utils.DateUtils
 
 class AddNoteActivity : AppCompatActivity() {
 
@@ -30,7 +27,7 @@ class AddNoteActivity : AppCompatActivity() {
         noteService = NoteService(this)
         userId = intent.getIntExtra("userId", -1)
 
-        showDatePickerDialog()
+        DateUtils.showDatePickerDialog(this, binding.dateEditText)
 
         binding.saveButton.setOnClickListener {
             val title = binding.titleEditText.text.toString()
@@ -48,28 +45,6 @@ class AddNoteActivity : AppCompatActivity() {
                 setResult(Activity.RESULT_OK)
                 finish()
             }
-        }
-    }
-    private fun showDatePickerDialog() {
-        val calendar = Calendar.getInstance()
-        binding.dateEditText.setOnClickListener {
-            val datePickerDialog = DatePickerDialog(
-                this,
-                { _, year, month, dayOfMonth ->
-                    val selectedDate = Calendar.getInstance().apply {
-                        set(Calendar.YEAR, year)
-                        set(Calendar.MONTH, month)
-                        set(Calendar.DAY_OF_MONTH, dayOfMonth)
-                    }
-                    val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
-                    val formattedDate = dateFormat.format(selectedDate.time)
-                    binding.dateEditText.setText(formattedDate)
-                },
-                calendar.get(Calendar.YEAR),
-                calendar.get(Calendar.MONTH),
-                calendar.get(Calendar.DAY_OF_MONTH)
-            )
-            datePickerDialog.show()
         }
     }
 }

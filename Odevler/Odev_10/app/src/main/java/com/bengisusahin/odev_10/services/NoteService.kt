@@ -57,10 +57,11 @@ class NoteService(context: Context) : DB(context) {
         return note
     }
 
-    fun updateNoteById(nid: Int, title: String, content: String): Int {
+    fun updateNoteById(nid: Int, title: String, date: String, content: String): Int {
         val db = this.writableDatabase
         val values = ContentValues().apply {
             put(COLUMN_NOTE_TITLE, title)
+            put(COLUMN_NOTE_DATE, date)
             put(COLUMN_NOTE_CONTENT, content)
         }
         val updateStatus = db.update(TABLE_NOTES, values, "$COLUMN_NOTE_ID = ?", arrayOf(nid.toString()))

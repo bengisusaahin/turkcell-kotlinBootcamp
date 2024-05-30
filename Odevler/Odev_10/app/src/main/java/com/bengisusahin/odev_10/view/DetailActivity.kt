@@ -10,6 +10,7 @@ import androidx.core.view.WindowInsetsCompat
 import com.bengisusahin.odev_10.R
 import com.bengisusahin.odev_10.databinding.ActivityDetailBinding
 import com.bengisusahin.odev_10.services.NoteService
+import com.bengisusahin.odev_10.utils.DateUtils
 
 class DetailActivity : AppCompatActivity() {
 
@@ -27,6 +28,8 @@ class DetailActivity : AppCompatActivity() {
         }
 
         noteService = NoteService(this)
+
+        DateUtils.showDatePickerDialog(this, binding.editTextDate)
 
         val noteId = intent.getIntExtra("noteId", -1)
         val note = noteService.getNoteById(noteId)
@@ -58,8 +61,9 @@ class DetailActivity : AppCompatActivity() {
 
         binding.updateButton.setOnClickListener {
             val title = binding.editTextTitle.text.toString()
+            val date = binding.editTextDate.text.toString()
             val content = binding.editTextContent.text.toString()
-            noteService.updateNoteById(noteId, title, content)
+            noteService.updateNoteById(noteId, title, date, content)
             Toast.makeText(this, "Note updated", Toast.LENGTH_SHORT).show()
             finish()
         }
