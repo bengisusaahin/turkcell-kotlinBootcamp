@@ -17,7 +17,7 @@ open class DB(context: Context) :SQLiteOpenHelper(context, DATABASE_NAME, null, 
         val contactsSql = "CREATE TABLE \"contacts\" (\n" +
                 "\t\"cid\"\tINTEGER,\n" +
                 "\t\"name\"\tTEXT,\n" +
-                "\t\"surname\"\tTEXT,\n" +
+                "\t\"surname\"\tTEXT,\n" +  
                 "\t\"age\"\tINTEGER,\n" +
                 "\t\"color\"\tTEXT,\n" +
                 "\tPRIMARY KEY(\"cid\" AUTOINCREMENT)\n" +

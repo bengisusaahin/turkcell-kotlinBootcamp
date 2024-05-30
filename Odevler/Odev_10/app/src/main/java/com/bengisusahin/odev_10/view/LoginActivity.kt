@@ -41,12 +41,14 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun login(username: String, password: String) {
-        val userExists = userService.getUser(username, password)
-        if (userExists) {
+        val userId = userService.getUser(username, password)
+        if (userId != -1) {
             // user exists
             // go to the main activity
             Toast.makeText(this, "User logged in successfully", Toast.LENGTH_SHORT).show()
-            val intent = Intent(this, MainActivity::class.java)
+            val intent = Intent(this, MainActivity::class.java).apply {
+                putExtra("userId", userId)
+            }
             startActivity(intent)
             finish()
         } else {
