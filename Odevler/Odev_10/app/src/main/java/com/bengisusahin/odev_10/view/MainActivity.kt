@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var noteService: NoteService
     private lateinit var noteAdapter: NoteAdapter
-    lateinit var allNotes:MutableList<Note>
+    private lateinit var allNotes:MutableList<Note>
     private var userId: Int = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,6 +38,12 @@ class MainActivity : AppCompatActivity() {
         noteService = NoteService(this)
         userId = intent.getIntExtra("userId", -1)
 
+        binding.floatingActionAddNoteButton.setOnClickListener {
+            val intent = Intent(this, AddNoteActivity::class.java)
+            intent.putExtra("userId", userId)
+            startActivity(intent)
+        }
+
         // Notları al ve RecyclerView'e ekle
         allNotes = noteService.getNotesForUser(userId)
         Log.d("allNotes",allNotes.toString())
@@ -48,12 +54,6 @@ class MainActivity : AppCompatActivity() {
         noteAdapter.onNoteClick = { note ->
             val intent = Intent(this, DetailActivity::class.java)
             intent.putExtra("noteId", note.nid)
-            startActivity(intent)
-        }
-
-        binding.floatingActionAddNoteButton.setOnClickListener {
-            val intent = Intent(this, AddNoteActivity::class.java)
-            intent.putExtra("userId", userId)
             startActivity(intent)
         }
 
@@ -108,7 +108,7 @@ class MainActivity : AppCompatActivity() {
             // If the query is empty after trimming, do nothing and return the current list
             noteAdapter.updateNotes(allNotes)
         } else {
-            val filteredNotes = noteService.searchNotes(trimmedQuery)
+            val filteredNotes = noteService.searchNotes(trimmedQuery, userId)
             noteAdapter.updateNotes(filteredNotes)
         }
     }
