@@ -12,7 +12,7 @@ open class DB(private val context: Context) :
     // This object can be accessed directly without creating object of class
     companion object {
         private const val DATABASE_NAME = "user.db"
-        private const val DATABASE_VERSION = 2
+        private const val DATABASE_VERSION = 1
         
         const val TABLE_USERS = "users"
         const val COLUMN_USER_ID = "id"

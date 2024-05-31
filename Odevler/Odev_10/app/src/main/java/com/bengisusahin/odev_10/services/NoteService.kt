@@ -84,7 +84,8 @@ class NoteService(context: Context) : DB(context) {
 
     fun searchNotes(q: String, uid: Int): MutableList<Note> {
         val db = this.readableDatabase
-        val cursor = db.rawQuery("SELECT * FROM $TABLE_NOTES WHERE $COLUMN_USER_ID_FK = ? AND ($COLUMN_NOTE_TITLE LIKE ? OR $COLUMN_NOTE_CONTENT LIKE ?)",
+        val cursor = db.rawQuery("SELECT * FROM $TABLE_NOTES WHERE $COLUMN_USER_ID_FK = ? AND " +
+                "($COLUMN_NOTE_TITLE LIKE ? OR $COLUMN_NOTE_CONTENT LIKE ?)",
             arrayOf(uid.toString(), "%$q%", "%$q%"))
         val notes = mutableListOf<Note>()
         while (cursor.moveToNext()) {

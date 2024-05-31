@@ -19,10 +19,24 @@
         android:inputType="text"
         android:paddingStart="24dp"
         android:paddingEnd="24dp"
-        app:layout_constraintBottom_toTopOf="@+id/dateEditText"
+        app:layout_constraintBottom_toTopOf="@+id/priorities_spinner"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Spinner
+        android:id="@+id/priorities_spinner"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/custom_input"
+        android:entries="@array/priorities"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/dateEditText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titleEditText" />
 
     <EditText
         android:id="@+id/dateEditText"
@@ -36,9 +50,9 @@
         android:hint="@string/day_month_year"
         android:paddingStart="24dp"
         app:layout_constraintBottom_toTopOf="@+id/contentEditText"
-        app:layout_constraintEnd_toEndOf="@+id/titleEditText"
-        app:layout_constraintStart_toStartOf="@+id/titleEditText"
-        app:layout_constraintTop_toBottomOf="@+id/titleEditText" />
+        app:layout_constraintEnd_toEndOf="@+id/priorities_spinner"
+        app:layout_constraintStart_toStartOf="@+id/priorities_spinner"
+        app:layout_constraintTop_toBottomOf="@+id/priorities_spinner" />
 
     <EditText
         android:id="@+id/contentEditText"

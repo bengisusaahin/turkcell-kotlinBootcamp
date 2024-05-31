@@ -33,17 +33,24 @@ class AddNoteActivity : AppCompatActivity() {
             val title = binding.titleEditText.text.toString()
             val content = binding.contentEditText.text.toString()
             val date = binding.dateEditText.text.toString()
-            val noteId = noteService.addNote(userId, title, content, date)
-            // if noteId is greater than -1, it means note is added successfully, addNote method returns the id of the note
-            if (noteId > -1) {
-                binding.titleEditText.text.clear()
-                binding.contentEditText.text.clear()
 
-                Toast.makeText(this, "Note added successfully", Toast.LENGTH_SHORT).show()
+            if (title.isEmpty() || content.isEmpty() || date.isEmpty()) {
+                Toast.makeText(this, "Please fill in all fields", Toast.LENGTH_SHORT).show()
+                // stops the execution of the code if any of the fields are empty
+                return@setOnClickListener
+            }else {
+                val noteId = noteService.addNote(userId, title, content, date)
+                // if noteId is greater than -1, it means note is added successfully, addNote method returns the id of the note
+                if (noteId > -1) {
+                    binding.titleEditText.text.clear()
+                    binding.contentEditText.text.clear()
 
-                // after adding the note, update the list
-                setResult(Activity.RESULT_OK)
-                finish()
+                    Toast.makeText(this, "Note added successfully", Toast.LENGTH_SHORT).show()
+
+                    // after adding the note, update the list
+                    setResult(Activity.RESULT_OK)
+                    finish()
+                }
             }
         }
     }

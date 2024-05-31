@@ -41,19 +41,24 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun login(username: String, password: String) {
-        val user = userService.getUser(username, password)
-        if (user != null) {
-            // user exists
-            // go to the main activity
-            Toast.makeText(this, "User logged in successfully", Toast.LENGTH_SHORT).show()
-            val intent = Intent(this, MainActivity::class.java)
+        if (username.isEmpty() || password.isEmpty()) {
+            Toast.makeText(this, "Please fill in all fields", Toast.LENGTH_SHORT).show()
+            return
+        }else {
+            val user = userService.getUser(username, password)
+            if (user != null) {
+                // user exists
+                // go to the main activity
+                Toast.makeText(this, "User logged in successfully", Toast.LENGTH_SHORT).show()
+                val intent = Intent(this, MainActivity::class.java)
                 intent.putExtra("userId", user.id)
-            startActivity(intent)
-            finish()
-        } else {
-            // user does not exist
-            // show a toast message
-            Toast.makeText(this, "Login failed", Toast.LENGTH_SHORT).show()
+                startActivity(intent)
+                finish()
+            } else {
+                // user does not exist
+                // show a toast message
+                Toast.makeText(this, "Username or password is incorrect", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 }

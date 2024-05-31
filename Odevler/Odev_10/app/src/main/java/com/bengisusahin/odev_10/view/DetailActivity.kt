@@ -64,9 +64,16 @@ class DetailActivity : AppCompatActivity() {
             val title = binding.editTextTitle.text.toString()
             val date = binding.editTextDate.text.toString()
             val content = binding.editTextContent.text.toString()
-            noteService.updateNoteById(noteId, title, date, content)
-            Toast.makeText(this, "Note updated", Toast.LENGTH_SHORT).show()
-            finish()
+
+            note?.let {
+                if (title == it.title && date == it.date && content == it.content) {
+                    Toast.makeText(this, "No changes made", Toast.LENGTH_SHORT).show()
+                }else{
+                    noteService.updateNoteById(noteId, title, date, content)
+                    Toast.makeText(this, "Note updated", Toast.LENGTH_SHORT).show()
+                    finish()
+                }
+            }
         }
     }
 }

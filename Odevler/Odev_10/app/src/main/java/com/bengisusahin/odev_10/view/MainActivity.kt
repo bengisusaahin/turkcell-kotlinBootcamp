@@ -1,20 +1,25 @@
 package com.bengisusahin.odev_10.view
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.PopupMenu
 import android.widget.SearchView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.bengisusahin.odev_10.R
 import com.bengisusahin.odev_10.adapter.NoteAdapter
 import com.bengisusahin.odev_10.databinding.ActivityMainBinding
 import com.bengisusahin.odev_10.models.Note
 import com.bengisusahin.odev_10.services.NoteService
+import com.bengisusahin.odev_10.utils.SwipeToDelete
 
 class MainActivity : AppCompatActivity() {
 
@@ -38,13 +43,34 @@ class MainActivity : AppCompatActivity() {
         noteService = NoteService(this)
         userId = intent.getIntExtra("userId", -1)
 
+        setUpFloatingActionButton()
+        setUpRecyclerView()
+        setUpSearchView()
+        setUpMenu()
+
+        swipeToDelete(binding.recyclerView)
+    }
+
+    // runs after onPause when the user returns to the activity
+    override fun onResume() {
+        super.onResume()
+        // Update the notes list and refresh the RecyclerView after updating the notes
+        allNotes.clear()
+        allNotes.addAll(noteService.getNotesForUser(userId))
+        noteAdapter.notifyItemRangeChanged(0, allNotes.size)
+    }
+
+    // Set up the floating action button to navigate to the AddNoteActivity
+    private fun setUpFloatingActionButton() {
         binding.floatingActionAddNoteButton.setOnClickListener {
             val intent = Intent(this, AddNoteActivity::class.java)
             intent.putExtra("userId", userId)
             startActivity(intent)
         }
+    }
 
-        // Notları al ve RecyclerView'e ekle
+    // Set up the RecyclerView with the notes list
+    private fun setUpRecyclerView() {
         allNotes = noteService.getNotesForUser(userId)
         Log.d("allNotes",allNotes.toString())
         noteAdapter = NoteAdapter(allNotes)
@@ -56,7 +82,10 @@ class MainActivity : AppCompatActivity() {
             intent.putExtra("noteId", note.nid)
             startActivity(intent)
         }
+    }
 
+    // Set up the SearchView to search notes by title or content
+    private fun setUpSearchView() {
         binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 performSearch(query)
@@ -68,7 +97,20 @@ class MainActivity : AppCompatActivity() {
                 return true
             }
         })
+    }
+    private fun performSearch(query: String?) {
+        val trimmedQuery = query?.trim()
+        if (trimmedQuery.isNullOrEmpty()) {
+            // If the query is empty after trimming, do nothing and return the current list
+            noteAdapter.updateNotes(allNotes)
+        } else {
+            val filteredNotes = noteService.searchNotes(trimmedQuery, userId)
+            noteAdapter.updateNotes(filteredNotes)
+        }
+    }
 
+    // Set up the menu button to show the popup menu with delete all notes and logout options
+    private fun setUpMenu() {
         binding.menuButton.setOnClickListener { view ->
             val popupMenu = PopupMenu(this, view)
             popupMenu.menuInflater.inflate(R.menu.popup_menu, popupMenu.menu)
@@ -80,11 +122,11 @@ class MainActivity : AppCompatActivity() {
                         noteAdapter.notifyDataSetChanged()
                         true
                     }R.id.logout -> {
-                        val intent = Intent(this, LoginActivity::class.java)
-                        startActivity(intent)
-                        finish()
-                        true
-                    }
+                    val intent = Intent(this, LoginActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                    true
+                }
 
                     else -> false
                 }
@@ -93,23 +135,30 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    // runs after onPause when the user returns to the activity
-    override fun onResume() {
-        super.onResume()
-        // Update the notes list and refresh the RecyclerView after updating the notes
-        allNotes.clear()
-        allNotes.addAll(noteService.getNotesForUser(userId))
-        noteAdapter.notifyDataSetChanged()
-    }
+    // Swipe to delete feature for RecyclerView items
+    private fun swipeToDelete(recyclerView: RecyclerView) {
+        val swipeHandler = object : SwipeToDelete() {
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                val position = viewHolder.adapterPosition
+                val note = allNotes[position]
 
-    private fun performSearch(query: String?) {
-        val trimmedQuery = query?.trim()
-        if (trimmedQuery.isNullOrEmpty()) {
-            // If the query is empty after trimming, do nothing and return the current list
-            noteAdapter.updateNotes(allNotes)
-        } else {
-            val filteredNotes = noteService.searchNotes(trimmedQuery, userId)
-            noteAdapter.updateNotes(filteredNotes)
+                AlertDialog.Builder(this@MainActivity)
+                    .setTitle("Delete Note")
+                    .setMessage("Are you sure you want to delete this note?")
+                    .setPositiveButton("Yes") { _, _ ->
+                        noteService.deleteNoteById(note.nid)
+                        allNotes.removeAt(position)
+                        noteAdapter.notifyItemRemoved(position)
+                        Toast.makeText(this@MainActivity, "Note deleted", Toast.LENGTH_SHORT).show()
+                    }
+                    .setNegativeButton("No",){ dialog, _ ->
+                        dialog.dismiss()
+                        noteAdapter.notifyItemChanged(position)
+                    }
+                    .show()
+            }
         }
+        val itemTouchHelper = ItemTouchHelper(swipeHandler)
+        itemTouchHelper.attachToRecyclerView(recyclerView)
     }
 }

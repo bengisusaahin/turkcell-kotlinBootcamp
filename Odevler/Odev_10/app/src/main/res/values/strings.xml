@@ -14,4 +14,10 @@
     <string name="logout">Logout</string>
     <string name="delete_all">Delete All</string>
     <string name="menu_button">menu button</string>
+
+    <string-array name="priorities">
+        <item>High Priority</item>
+        <item>Medium Priority</item>
+        <item>Low Priority</item>
+    </string-array>
 </resources>
