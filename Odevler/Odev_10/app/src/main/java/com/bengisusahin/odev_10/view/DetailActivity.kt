@@ -37,6 +37,7 @@ class DetailActivity : AppCompatActivity() {
         note?.let {
             binding.apply {
                 editTextTitle.setText(it.title)
+                editTextDate.setText(it.date)
                 editTextContent.setText(it.content)
             }
         }

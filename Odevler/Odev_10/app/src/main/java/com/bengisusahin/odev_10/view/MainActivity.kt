@@ -3,6 +3,7 @@ package com.bengisusahin.odev_10.view
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.PopupMenu
 import android.widget.SearchView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -67,6 +68,29 @@ class MainActivity : AppCompatActivity() {
                 return true
             }
         })
+
+        binding.menuButton.setOnClickListener { view ->
+            val popupMenu = PopupMenu(this, view)
+            popupMenu.menuInflater.inflate(R.menu.popup_menu, popupMenu.menu)
+            popupMenu.setOnMenuItemClickListener { menuItem ->
+                when (menuItem.itemId) {
+                    R.id.deleteAll -> {
+                        noteService.deleteAllNotesForUser(userId)
+                        allNotes.clear()
+                        noteAdapter.notifyDataSetChanged()
+                        true
+                    }R.id.logout -> {
+                        val intent = Intent(this, LoginActivity::class.java)
+                        startActivity(intent)
+                        finish()
+                        true
+                    }
+
+                    else -> false
+                }
+            }
+            popupMenu.show()
+        }
     }
 
     // runs after onPause when the user returns to the activity

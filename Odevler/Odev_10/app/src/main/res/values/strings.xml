@@ -11,4 +11,7 @@
     <string name="save">Save</string>
     <string name="update">Update</string>
     <string name="day_month_year">day/month/year</string>
+    <string name="logout">Logout</string>
+    <string name="delete_all">Delete All</string>
+    <string name="menu_button">menu button</string>
 </resources>

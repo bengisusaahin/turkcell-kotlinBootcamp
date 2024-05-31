@@ -75,6 +75,13 @@ class NoteService(context: Context) : DB(context) {
         return deleteStatus
     }
 
+    fun deleteAllNotesForUser(uid: Int): Int {
+        val db = this.writableDatabase
+        val deleteStatus = db.delete(TABLE_NOTES, "$COLUMN_USER_ID_FK = ?", arrayOf(uid.toString()))
+        db.close()
+        return deleteStatus
+    }
+
     fun searchNotes(q: String): MutableList<Note> {
         val db = this.readableDatabase
         val cursor = db.rawQuery("SELECT * FROM $TABLE_NOTES WHERE $COLUMN_NOTE_TITLE LIKE '%$q%' or $COLUMN_NOTE_CONTENT LIKE '%$q%'", null)
