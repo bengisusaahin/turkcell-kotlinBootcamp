@@ -57,7 +57,7 @@ class MainActivity : AppCompatActivity() {
         // Update the notes list and refresh the RecyclerView after updating the notes
         allNotes.clear()
         allNotes.addAll(noteService.getNotesForUser(userId))
-        noteAdapter.notifyItemRangeChanged(0, allNotes.size)
+        noteAdapter.notifyDataSetChanged()
     }
 
     // Set up the floating action button to navigate to the AddNoteActivity
