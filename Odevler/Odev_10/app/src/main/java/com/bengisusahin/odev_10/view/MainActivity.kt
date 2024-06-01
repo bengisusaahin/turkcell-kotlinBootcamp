@@ -117,9 +117,19 @@ class MainActivity : AppCompatActivity() {
             popupMenu.setOnMenuItemClickListener { menuItem ->
                 when (menuItem.itemId) {
                     R.id.deleteAll -> {
-                        noteService.deleteAllNotesForUser(userId)
-                        allNotes.clear()
-                        noteAdapter.notifyDataSetChanged()
+                        AlertDialog.Builder(this)
+                            .setTitle("Delete All Note")
+                            .setMessage("Are you sure you want to delete all note?")
+                            .setPositiveButton("Yes") { _, _ ->
+                                noteService.deleteAllNotesForUser(userId)
+                                allNotes.clear()
+                                noteAdapter.notifyDataSetChanged()
+                                Toast.makeText(this, "Notes deleted", Toast.LENGTH_SHORT).show()
+                            }
+                            .setNegativeButton("No", ){dialog, _ ->
+                                dialog.dismiss()
+                            }
+                            .show()
                         true
                     }R.id.logout -> {
                     val intent = Intent(this, LoginActivity::class.java)
