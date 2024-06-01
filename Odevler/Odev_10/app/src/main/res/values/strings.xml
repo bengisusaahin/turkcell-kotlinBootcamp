@@ -14,6 +14,9 @@
     <string name="logout">Logout</string>
     <string name="delete_all">Delete All</string>
     <string name="menu_button">menu button</string>
+    <string name="save_note">Save note</string>
+    <string name="update_note">Update Note</string>
+    <string name="delete_note">Delete Note</string>
 
     <string-array name="priorities">
         <item>High Priority</item>

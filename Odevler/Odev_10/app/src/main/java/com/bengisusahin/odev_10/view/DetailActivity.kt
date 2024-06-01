@@ -19,26 +19,20 @@ class DetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailBinding.inflate(layoutInflater)
-        enableEdgeToEdge()
         setContentView(binding.root)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
 
         noteService = NoteService(this)
 
-        DateUtils.showDatePickerDialog(this, binding.editTextDate)
+        DateUtils.showDatePickerDialog(this, binding.etDetailDate)
 
         val noteId = intent.getIntExtra("noteId", -1)
         val note = noteService.getNoteById(noteId)
 
         note?.let {
             binding.apply {
-                editTextTitle.setText(it.title)
-                editTextDate.setText(it.date)
-                editTextContent.setText(it.content)
+                etDetailTitle.setText(it.title)
+                etDetailDate.setText(it.date)
+                etDetailContent.setText(it.content)
             }
         }
 
@@ -61,9 +55,9 @@ class DetailActivity : AppCompatActivity() {
         }
 
         binding.updateButton.setOnClickListener {
-            val title = binding.editTextTitle.text.toString()
-            val date = binding.editTextDate.text.toString()
-            val content = binding.editTextContent.text.toString()
+            val title = binding.etDetailTitle.text.toString()
+            val date = binding.etDetailDate.text.toString()
+            val content = binding.etDetailContent.text.toString()
 
             note?.let {
                 if (title == it.title && date == it.date && content == it.content) {
