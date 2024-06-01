@@ -35,7 +35,7 @@ class DetailActivity : AppCompatActivity() {
                 etDetailContent.setText(it.content)
             }
         }
-
+        // delete button click listener to delete the note
         binding.deleteButton.setOnClickListener {
             AlertDialog.Builder(this)
                 .setTitle("Delete Note")
@@ -54,11 +54,13 @@ class DetailActivity : AppCompatActivity() {
                 .show()
         }
 
+        // update button click listener to update the note
         binding.updateButton.setOnClickListener {
             val title = binding.etDetailTitle.text.toString()
             val date = binding.etDetailDate.text.toString()
             val content = binding.etDetailContent.text.toString()
 
+            // check if there is any change in the note fields
             note?.let {
                 if (title == it.title && date == it.date && content == it.content) {
                     Toast.makeText(this, "No changes made", Toast.LENGTH_SHORT).show()

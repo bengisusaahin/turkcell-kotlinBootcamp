@@ -25,10 +25,12 @@ class AddNoteActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         noteService = NoteService(this)
+        // get the userId from the intent that started this activity
         userId = intent.getIntExtra("userId", -1)
 
         DateUtils.showDatePickerDialog(this, binding.dateEditText)
 
+        // save the note to the database when the save button is clicked
         binding.saveButton.setOnClickListener {
             val title = binding.titleEditText.text.toString()
             val content = binding.contentEditText.text.toString()

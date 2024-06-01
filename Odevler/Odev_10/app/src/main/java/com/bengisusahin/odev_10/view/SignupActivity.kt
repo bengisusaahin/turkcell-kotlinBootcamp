@@ -43,6 +43,7 @@ class SignupActivity : AppCompatActivity() {
         }
     }
 
+    // sign up the user with the given username and password
     private fun signUp(username: String, password: String) {
         if (username.isEmpty() || password.isEmpty()) {
             Toast.makeText(this, "Please fill in all fields", Toast.LENGTH_SHORT).show()

@@ -33,6 +33,7 @@ class LoginActivity : AppCompatActivity() {
             val password = binding.textPassword.text.toString()
             login(username, password)
         }
+        // go to the signup activity when the user clicks the sign up text
         binding.textviewSignUp.setOnClickListener {
             val intent = Intent(this, SignupActivity::class.java)
             startActivity(intent)
@@ -40,6 +41,7 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
+    // login function checks if the user exists in the database
     private fun login(username: String, password: String) {
         if (username.isEmpty() || password.isEmpty()) {
             Toast.makeText(this, "Please fill in all fields", Toast.LENGTH_SHORT).show()
